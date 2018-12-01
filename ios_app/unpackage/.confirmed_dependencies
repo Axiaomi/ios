@@ -1,0 +1,14 @@
+{
+	"index.html": {
+		"resources": [
+			"views/home/home.html"
+		],
+		"refer": [
+			"views/home/home.html",
+			"views/zixun/zixun.html",
+			"views/chat/chat.html",
+			"views/mee/mee.html",
+			"views/faxian/faxian.html"
+		]
+	}
+}

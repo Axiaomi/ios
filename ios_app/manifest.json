@@ -125,5 +125,33 @@
 				}
 			}
 		}
+	},
+	"dependencies": {
+		"pages": {
+			"index.html": {
+				"resources": [
+					"views/home/home.html"
+				],
+				"refer": [
+					"views/zixun/zixun.html",
+					"views/chat/chat.html",
+					"views/mee/mee.html",
+					"views/faxian/faxian.html"
+				],
+				"priority": 0
+			}
+		},
+		"idle": {
+			"resources": [
+				"views/home/home.css",
+				"public/css/mui.css",
+				"views/home/home.js",
+				"public/js/mui.min.js",
+				"public/css/mui.min.css",
+				"public/js/index.js",
+				"public/fonts/mui.ttf",
+				"public/js/mui.js"
+			]
+		}
 	}
 }

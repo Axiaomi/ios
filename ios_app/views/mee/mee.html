@@ -9,26 +9,56 @@
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 
 		<link rel="stylesheet" href="../../public/css/mui.min.css">
-		<link rel="stylesheet" type="text/css" href="mee.css"/>
+		<link rel="stylesheet" type="text/css" href="mee.css" />
 
 	</head>
 
 	<body>
-		<header id="header" class="mui-bar mui-bar-transparent" style="">
-			<div class="mui-icon mui-icon-gear shezhi">	
+		<header id="header" class="" style="">
+			<div class="mui-icon mui-icon-gear shezhi">
 			</div>
-			<!--<h1 class="mui-title">
-				<a >登录</a>/<a href="">注册</a>
-			</h1>
-			<a class="mui-icon mui-icon-chat mui-pull-right"></a>-->
-		</header>
-		<!--下拉刷新容器-->
-		<div id="pullrefresh" class="mui-content">
-			<!--数据列表-->
-			<ul class="mui-table-view mui-table-view-chevron"></ul>
-		</div>
-		<script src="../../public/js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+			<div class="header_tou">
+				<div class="header_touxiang">
+					<img class="header_img" src="../../public/img/timg1.jpg" />
+				</div>
 
+				<div class="header_mingzi">
+					<p>名字</p>
+					<p>电话等等数据</p>
+				</div>
+				<div class="mui-icon mui-icon-arrowright header_jiao">
+
+				</div>
+			</div>
+		</header>
+		<ul class="quanzi">
+			<li>我的发帖</li>
+			<li>我的圈子</li>
+			<li>我的收藏</li>
+		</ul>
+		<ul class="mui-table-view">
+			<li class="mui-table-view-cell">
+				<a class="mui-navigate-right"><span class="mui-icon mui-icon-qq"></span>联系客服</a>
+			</li>
+			<li class="mui-table-view-cell">
+
+				<a class="mui-navigate-right"> <span class="mui-icon mui-icon-info">
+					
+				</span>关于我们</a>
+			</li>
+			<li class="mui-table-view-cell">
+
+				<a class="mui-navigate-right"> <span class="mui-icon mui-icon-loop">
+					
+				</span>系统更新</a>
+			</li>
+			<li class="mui-table-view-cell">
+				<a class="mui-navigate-right qingchu"><span class="mui-icon mui-icon-trash"></span><span id="">清除缓存</span>  <span id="">20M</span></a>
+			</li>
+		</ul>
+
+		<script src="../../public/js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="mee.js" type="text/javascript" charset="utf-8"></script>
 	</body>
 
 </html>

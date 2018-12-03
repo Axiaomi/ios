@@ -1,7 +1,8 @@
 {
 	"index.html": {
 		"resources": [
-			"views/home/home.html"
+			"views/home/home.html",
+			"views/faxian/faxian.html"
 		],
 		"refer": [
 			"views/home/home.html",

@@ -1,0 +1,34 @@
+.mui-bar .mui-title {
+    color: #FFFFFF !important;
+    font-weight: 700;
+}
+.mui-bar {
+	background-color: #9266f9;
+}
+.mui-scroll .mui-control-item{
+	font-weight: 700;
+}
+
+
+.mui-segmented-control.mui-segmented-control-inverted .mui-control-item.mui-active {
+    color: #9266f9;
+    border-bottom: 2px solid #9266f9;
+    background: none;
+    
+}
+
+/*.bot {
+	 margin-top: -25%;
+    height: 4px !important;
+    background-color: #9266f9;
+    border-radius: 126px 126px 126px;
+}*/
+..mui-segmented-control .mui-control-item {
+    line-height: 21px !important;
+    }
+.mui-table-cell .image{
+	height: 80px;
+	width: 32%;
+	margin-left: 1px;
+	border-radius: 5px 5px 5px;
+}

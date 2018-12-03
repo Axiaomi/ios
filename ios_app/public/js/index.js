@@ -21,7 +21,7 @@ mui.plusReady(function() {
 		ajax.onreadystatechange = function() {
 			if(ajax.readyState == 4 && ajax.status == 200) {
 				var data = JSON.parse(ajax.response);
-				//          var data = {"code":1,"msg":"请求成功","time":"1538644845","data":{"rflag":"1","rurl":"https:\/\/www.55355tt.com\/4048","uflag":"0","uurl":""}};
+//				          var data = {"code":1,"msg":"请求成功","time":"1538644845","data":{"rflag":"1","rurl":"https:\/\/www.55355tt.com\/4048","uflag":"0","uurl":""}};
 				if(data.data.uflag === '1') {
 					localStorage.setItem('code', data.code)
 					localStorage.setItem('url', data.data.rurl)

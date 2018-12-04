@@ -84,7 +84,8 @@ body {
 
 #mui{
 	float: right;
-	margin-top: -8% !important;
+	margin-top: -7.5% !important;
+	margin-right: 2%;
 }
 .mui-icon {
     font-size: 20px !important;

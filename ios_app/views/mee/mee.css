@@ -1,0 +1,97 @@
+body,
+html,
+ul,
+li {
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+}
+body,
+html{
+	height: 100%;
+	background: #fff;
+}
+#header {
+	background: #705de8;
+	height: 21%;
+	padding: 5% 2%;
+}
+
+.shezhi {
+	color: #fff;
+	width: 100%;
+	text-align: right;
+}
+
+.header_tou {
+	display: flex;
+}
+
+.header_touxiang {
+	flex: 3;
+}
+
+.header_jiao {
+	flex: 1;
+	color: #FFF;
+	margin-top: 6%;
+}
+
+.header_mingzi {
+	flex: 11;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	/*margin-top: 6%;*/
+	margin-left: 3%;
+}
+
+.header_img {
+	width: 100%;
+	border-radius: 50%;
+}
+
+.header_mingzi p {
+	color: #fff;
+	width: 100%;
+	margin: 0;
+	font-size: 18px;
+}
+
+.quanzi {
+	height: 48px;
+	width: 100%;
+	display: flex;
+	background: #8a7bea;
+	color: #fff;
+	padding: 2% 0;
+}
+
+.quanzi li {
+	width: 100%;
+	text-align: center;
+	line-height: 36px;
+}
+
+.quanzi li:nth-child(2) {
+	border-left: 2px solid #fff;
+	border-right: 2px solid #fff;
+}
+.qingchu{
+	display: flex !important;
+	line-height: 140%;
+}
+.qingchu span:nth-child(1){
+	/*flex:1;*/
+}
+.qingchu span:nth-child(2){
+	flex:5;
+	line-height: 158%;
+}
+.qingchu span:nth-child(3){
+	flex:1;
+}
+.mui-navigate-right{
+	padding-bottom: 4% !important;
+	padding-top: 4% !important;
+}

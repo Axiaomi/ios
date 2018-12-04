@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
 	"index.html": {
 		"resources": [
 			"views/home/home.html",
@@ -12,4 +13,18 @@
 			"views/faxian/faxian.html"
 		]
 	}
+=======
+  "index.html": {
+    "resources": [
+      "views/home/home.html"
+    ],
+    "refer": [
+      "views/home/home.html",
+      "views/zixun/zixun.html",
+      "views/chat/chat.html",
+      "views/mee/mee.html",
+      "views/faxian/faxian.html"
+    ]
+  }
+>>>>>>> 6a36b52f3f9086e93ab314f2863d0475483a1c2e
 }

@@ -1,14 +1,32 @@
 {
-  "index.html": {
-    "resources": [
-      "views/home/home.html"
-    ],
-    "refer": [
-      "views/home/home.html",
-      "views/zixun/zixun.html",
-      "views/chat/chat.html",
-      "views/mee/mee.html",
-      "views/faxian/faxian.html"
-    ]
-  }
+	"index.html": {
+		"resources": [
+			"views/home/home.html"
+		],
+		"refer": [
+			"views/home/home.html",
+			"views/zixun/zixun.html",
+			"views/chat/chat.html",
+			"views/mee/mee.html",
+			"views/faxian/faxian.html"
+		]
+	},
+	"views/mee/mee.html": {
+		"refer": [
+			"views/mee/mee_xq.html",
+			"views/mee/mee_shezhi.html",
+			"views/mee/mee_tiezi.html",
+			"views/mee/mee_shoucang.html"
+		]
+	},
+	"views/mee/mee_shezhi.html": {
+		"refer": [
+			"views/login/login.html"
+		]
+	},
+	"views/login/login.html": {
+		"refer": [
+			"views/login/reg.html"
+		]
+	}
 }

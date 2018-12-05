@@ -81,15 +81,15 @@ html{
 	display: flex !important;
 	line-height: 140%;
 }
-.qingchu span:nth-child(1){
-	/*flex:1;*/
-}
+
 .qingchu span:nth-child(2){
-	flex:5;
+	flex:4;
 	line-height: 158%;
 }
 .qingchu span:nth-child(3){
 	flex:1;
+	line-height: 158%;
+	
 }
 .mui-navigate-right{
 	padding-bottom: 4% !important;

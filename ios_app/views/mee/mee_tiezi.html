@@ -1,0 +1,332 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../public/css/mui.css" rel="stylesheet" />
+		<script src="../../public/js/mui.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="../../public/fonts/iconfont.css" />
+		<style type="text/css">
+			html,
+			body {
+				background: #fff;
+			}
+			
+			.mui-bar {
+				background: #705de8;
+			}
+			
+			.mui-pull-left {
+				color: #fff !important;
+			}
+			
+			.mui-title {
+				color: #fff;
+			}
+			
+			.mui-bar-nav {
+				top: 0;
+				-webkit-box-shadow: 0 1px 6px #ccc;
+				box-shadow: none;
+			}
+			
+			#fatiezi {
+				width: 100%;
+				height: 6%;
+				background: #CCCCCC;
+				position: fixed;
+				bottom: 0;
+				z-index: 99;
+			}
+			
+			.mui-slider-group {
+				margin-top: 12%;
+			}
+			
+			.pinglun_02 {
+				border-bottom: 1px solid #ccc;
+				margin-bottom: 2%;
+				line-height: 320%;
+				text-indent: 1em;
+			}
+			
+			.pinglun_03 {
+				display: flex;
+				/*flex-wrap: nowrap*/
+			}
+			
+			.pinglun_03 img {
+				width: 14% !important;
+				height: 14%;
+				flex: 1;
+				border-radius: 50%;
+			}
+			
+			.pinglun_03 .pinglun_03_span {
+				flex: 7;
+			}
+			
+			.pinglun_03 span {
+				line-height: 280%;
+			}
+			
+			.pinglun_03 .mui-icon-email {
+				flex: 2;
+				line-height: 280%;
+				font-size: 112%;
+			}
+			
+			.pinglun_03 .icon-dianzan-copy {
+				flex: 2;
+				line-height: 244%;
+				font-size: 112%;
+			}
+			
+			.pinglun_03 .mui-icon-trash {
+				flex: 1;
+				line-height: 156%;
+			}
+			
+			.pinglun_022 {
+				width: 94%;
+				padding-left: 14%;
+			}
+			
+			.daodibu {
+				margin-top: 10%;
+				border-top: 1px solid #ccc;
+				padding-top: 6%;
+				color: #ddd;
+				text-align: center;
+				margin-bottom: 16%;
+			}
+			
+			.pl {
+				margin: 10% 0;
+			}
+			
+			.mui-table-view {
+				padding: 0% 2%;
+			}
+			
+			.fat {
+				width: 60px;
+				height: 60px;
+				border-radius: 50%;
+				position: fixed;
+				bottom: 2%;
+				left: 42%;
+				background: #6641E2;
+				text-align: center;
+				line-height: 60px;
+				z-index: 100;
+				color: #fff;
+			}
+			
+			#dialog {
+				width: 100%;
+				height: 100%;
+				background: #fff;
+				z-index: 999;
+				margin-top: 14%;
+				margin-bottom: 0% !important;
+				padding: 0% 4%;
+			}
+			
+			#dialog textarea {
+				margin-bottom: 0% !important;
+				background: #ccc;
+			}
+			
+			.fabiao {
+				background: #007AFF;
+				color: #fff;
+				width: 16%;
+				height: 30px;
+				line-height: 30px;
+				text-align: center;
+				font-size: 20px;
+				float: right;
+				border-radius: 4px;
+			}
+			
+			.fanhui {
+				float: left;
+			}
+			
+			.mui-slider .mui-segmented-control.mui-segmented-control-inverted~.mui-slider-group .mui-slider-item {
+				border-top: 1px solid #c8c7cc;
+				border-bottom: 0px solid #c8c7cc !important;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">我的帖子</h1>
+		</header>
+
+		<div id="ba" class="mui-slider" style="display: block;">
+			<div id="fat" class="fat">
+				发帖
+			</div>
+			<div id="fatiezi" class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+				<a class="mui-control-item" href="#item1">看帖</a>
+				<a class="mui-control-item" href="#item2">精华</a>
+			</div>
+			<div id="sliderProgressBar" class="mui-slider-progress-bar mui-col-xs-6"></div>
+
+			<div class="mui-slider-group">
+
+				<div id="item1" class="mui-slider-item mui-control-content mui-active">
+
+					<ul class="mui-table-view">
+						<div class="pinglun">
+							<div id="" class="pinglun_02">
+								帖吧
+							</div>
+							<div id="pll">
+
+								<div id="pl" class="pl">
+									<div class="pinglun_03">
+										<img src="../../public/img/timg1.jpg" />
+										<span class="pinglun_03_span">
+										346432136
+									</span>
+										<span class="mui-icon mui-icon-email">
+										0
+									</span>
+										<span class="iconfont icon-dianzan-copy">
+										0
+									</span>
+										<span class="mui-icon mui-icon-trash"></span>
+									</div>
+									<div class="pinglun_022">
+										爱就是的合法i卡萨丁你就哦了卡你就哦了卡卡你就哦了卡卡你就哦了卡卡你就哦了卡卡你就哦了卡卡你就哦了卡卡你就哦了卡卡你就哦了卡卡你就哦了卡卡你就哦了卡卡你就哦了卡卡你就哦了卡卡你就哦了卡卡你就哦了卡卡你就哦了卡卡你就哦了卡卡你就哦了卡卡你就哦了卡卡你就哦了卡卡你就哦了卡卡你就哦了卡卡你就哦了卡卡你就哦了卡卡你就哦了卡卡你就哦了卡卡你就哦了卡卡你就哦了卡卡你就哦了卡卡你就哦了卡卡你就哦了卡卡你就哦了卡你就哦了卡你就哦了卡你就哦了卡你就哦了卡你就哦了卡你就哦了卡
+									</div>
+								</div>
+							</div>
+
+						</div>
+					</ul>
+					<!--到底啦-->
+					<div class="daodibu">
+						到底啦 ! ! !
+					</div>
+				</div>
+
+				<div id="item2" class="mui-slider-item mui-control-content">
+					<ul class="mui-table-view">
+						<div class="pinglun">
+							<div class="pinglun_02">
+								精华
+							</div>
+
+							<div class="pl">
+								<div class="pinglun_03">
+									<img src="../../public/img/timg1.jpg" />
+									<span class="pinglun_03_span">
+										346432136
+									</span>
+									<span class="mui-icon mui-icon-email">
+										0
+									</span>
+									<span class="iconfont icon-dianzan-copy">
+										0
+									</span>
+									<span class="mui-icon mui-icon-trash"></span>
+								</div>
+								<div id="" class="pinglun_022">
+									阿斯达所大阿斯达所大阿斯达所大阿斯达所大阿斯达所大阿斯达所大阿斯达所大阿斯达所大
+								</div>
+							</div>
+							<div class="pl">
+								<div class="pinglun_03">
+									<img src="../../public/img/timg1.jpg" />
+									<span class="pinglun_03_span">
+										346432136
+									</span>
+									<span class="mui-icon mui-icon-email">
+										0
+									</span>
+									<span class="iconfont icon-dianzan-copy">
+										0
+									</span>
+									<span class="mui-icon mui-icon-trash"></span>
+								</div>
+								<div class="pinglun_022">
+									阿斯达所大阿斯达所大阿斯达所大阿斯达所大阿斯达所大阿斯达所大阿斯达所大阿斯达所大阿斯达所大阿斯达所大阿斯达所大阿斯达所大阿斯达所大阿斯达所大
+								</div>
+							</div>
+						</div>
+					</ul>
+					<!--到底啦-->
+					<div class="daodibu">
+						到底啦 ! ! !
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+		<div id='dialog' style="display:none">
+			<textarea id="wenben" rows=10 cols=30 autofocus="autofocus"> 
+			</textarea>
+			<div id="fabiao" class="fabiao">
+				发表
+			</div>
+			<div id="fanhui" class="fabiao fanhui">
+				返回
+			</div>
+		</div>
+		<script type="text/javascript">
+			mui.init()
+			document.getElementById('fat').addEventListener('tap', function() {
+				var dialog = document.getElementById('dialog')
+				var ba = document.getElementById('ba')
+				//					alert(dialog)
+				ba.style.display = 'none';
+				dialog.style.display = 'block';
+			});
+			document.getElementById('fanhui').addEventListener('tap', function() {
+				var dialog = document.getElementById('dialog')
+				var ba = document.getElementById('ba')
+				ba.style.display = ' block';
+				dialog.style.display = 'none';
+			});
+			document.getElementById('fabiao').addEventListener('tap', function() {
+				var dialog = document.getElementById('dialog')
+				var ba = document.getElementById('ba')
+				var wenben = document.getElementById('wenben')
+				var neirong = document.getElementById('neirong')
+				var pl = document.getElementById('pl')
+				//				var pll = document.getElementById('pll')
+				ba.style.display = ' block';
+				dialog.style.display = 'none';
+
+				pl.innerHTML = '<div class="pl">' +
+					'<div class="pinglun_03">' +
+					'<img src="../../public/img/timg1.jpg" />' +
+					'<span class="pinglun_03_span">' +
+					'346432136' +
+					'</span>' +
+					'<span class="mui-icon mui-icon-email">' +
+					'0' +
+					'</span>' +
+					'<span class="iconfont icon-dianzan-copy">' +
+					'0' +
+					'</span>' +
+					'<span class="mui-icon mui-icon-trash"></span>' +
+					'</div>' +
+					'<div class="pinglun_022">' + wenben.value +
+					'</div>' +
+					'</div>';
+				wenben.value = '';
+			});
+		</script>
+	</body>
+
+</html>

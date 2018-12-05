@@ -27,7 +27,11 @@ html{
      padding-bottom: 1%;
      padding-left: 2%;
      padding-right: 2%;
-     margin-top: 2%;
+     /*margin-top: 2%;*/
+     width: 20%;
+     line-height: 200%;
+     text-align: center;
+     height: 43px;
 }
 .mui-bar-nav h1{
 	color: #fff;
@@ -150,12 +154,12 @@ html{
 }
 .pinglun_022{
 	width: 94%;
-	height: 60px;
 	padding-left: 14%;
-	display: -webkit-box;
+	/*文本超出隐藏*/
+	/*display: -webkit-box;
 	-webkit-box-orient: vertical;
 	-webkit-line-clamp: 3;
-	overflow: hidden;
+	overflow: hidden;*/
 }
 
 .daodibu{

@@ -1,0 +1,113 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../public/css/mui.css" rel="stylesheet" />
+		<style type="text/css">
+			.mui-bar {
+				background: #705de8;
+			}
+			
+			.mui-pull-left {
+				color: #fff !important;
+			}
+			
+			.mui-title {
+				color: #fff;
+			}
+			
+			.mui-bar-nav {
+				top: 0;
+				-webkit-box-shadow: 0 1px 6px #ccc;
+				box-shadow: none;
+			}
+			
+			.mui-table-view {
+				margin-top: 16%;
+			}
+			
+			.mui-table-view-cell {
+				padding: 60% auto !important;
+			}
+			
+			.huantoux {
+				display: flex;
+				padding: 2% 0%;
+				border-bottom: 1px solid #ddd;
+				margin-left: 4%;
+				align-items: center;
+			}
+			
+			.huantoux div {
+				flex: 10;
+			}
+			
+			.huantoux img {
+				padding: 2%;
+				width: 20%;
+				height: 20%;
+			}
+			
+			.right {
+				padding: 5% 5% !important;
+				display: flex !important;
+			}
+			
+			.right span:nth-child(1) {
+				flex: 8;
+			}
+			.right span:nth-child(2) {
+				color: #C0C0C0;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">个人中心</h1>
+		</header>
+		<ul class="mui-table-view">
+			<li class="huantoux">
+				<div class="">
+					头像
+				</div>
+				<img src="../../public/img/timg1.jpg" />
+			</li>
+			<li class="mui-table-view-cell">
+				<a class="right">
+
+					<span id="">
+						昵称
+					</span>
+					<span id="">
+						小宇
+					</span>
+				</a>
+			</li>
+			<li class="mui-table-view-cell">
+				<a class="right">
+					<span id="">
+						号码
+					</span>
+					<span id="">
+						324642143614
+					</span>
+				</a>
+			</li>
+			<li class="mui-table-view-cell">
+				<a class="right">
+					更多
+				</a>
+			</li>
+		</ul>
+		<script src="../../public/js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init()
+		</script>
+	</body>
+
+</html>

@@ -9,56 +9,68 @@
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../../public/css/mui.min.css">
 		<link rel="stylesheet" type="text/css" href="mee.css" />
-		
+		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 
 	</head>
 
 	<body>
-		<header id="header" class="" style="">
-			<div class="mui-icon mui-icon-gear shezhi">
-			</div>
-			<div class="header_tou">
-				<div class="header_touxiang">
-					<img class="header_img" src="../../public/img/timg1.jpg" />
-				</div>
+		<div id="app">
 
-				<div class="header_mingzi">
-					<p>名字</p>
-					<p>电话等等数据</p>
+			<header id="header" class="" style="">
+				<div id="shezhi" class="mui-icon mui-icon-gear shezhi">
 				</div>
-				<div class="mui-icon mui-icon-arrowright header_jiao">
+				<div id="geren" class="header_tou">
+					<div class="header_touxiang">
+						<img class="header_img" src="../../public/img/timg1.jpg" />
+					</div>
+					<div class="header_mingzi">
+						<p>{{message}}</p>
+						<p>{{dianhua}}</p>
+					</div>
+					<div class="mui-icon mui-icon-arrowright header_jiao">
 
+					</div>
 				</div>
-			</div>
-		</header>
-		<ul class="quanzi">
-			<li>我的发帖</li>
-			<li>我的圈子</li>
-			<li>我的收藏</li>
-		</ul>
-		<ul class="mui-table-view">
-			<li class="mui-table-view-cell">
-				<a class="mui-navigate-right"><span class="mui-icon mui-icon-qq"></span>联系客服</a>
-			</li>
-			<li class="mui-table-view-cell">
+			</header>
+			<ul class="quanzi">
+				<li id="tiezi">我的发帖</li>
+				<li id="quanzi">我的圈子</li>
+				<li id="shoucang">我的收藏</li>
+			</ul>
+			<ul class="mui-table-view">
+				<li id="kf_01" class="mui-table-view-cell">
+					<a class="mui-navigate-right"><span class="mui-icon mui-icon-qq"></span>联系客服</a>
+				</li>
+				<li class="mui-table-view-cell" id="wo">
 
-				<a class="mui-navigate-right"> <span class="mui-icon mui-icon-info">
+					<a class="mui-navigate-right"> <span class="mui-icon mui-icon-info">
 					
 				</span>关于我们</a>
-			</li>
-			<li class="mui-table-view-cell">
+				</li>
+				<li class="mui-table-view-cell" id="gengx">
 
-				<a class="mui-navigate-right"> <span class="mui-icon mui-icon-loop">
+					<a class="mui-navigate-right"> <span class="mui-icon mui-icon-loop">
 					
 				</span>系统更新</a>
-			</li>
-			<li class="mui-table-view-cell">
-				<a class="mui-navigate-right qingchu"><span class="mui-icon mui-icon-trash"></span><span id="">清除缓存</span>  <span id="">20M</span></a>
-			</li>
-		</ul>
-
+				</li>
+				<li class="mui-table-view-cell" id="tabbar-with-map">
+					<a class="mui-navigate-right qingchu"><span class="mui-icon mui-icon-trash"></span><span id="">清除缓存</span> <span id="mm">2.0M</span></a>
+				</li>
+			</ul>
+		</div>
 		<script src="../../public/js/mui.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="mee.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			var app = new Vue({
+				el: '#app',
+				data: {
+					message: '小宇',
+					dianhua:'564563232146'
+				},
+				methods:{
+				},
+			})
+		</script>
 	</body>
 
 </html>

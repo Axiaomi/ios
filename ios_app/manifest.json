@@ -130,13 +130,13 @@
 		"pages": {
 			"index.html": {
 				"resources": [
-					"views/home/home.html"
+					"views/home/home.html",
+					"views/faxian/faxian.html"
 				],
 				"refer": [
 					"views/zixun/zixun.html",
 					"views/chat/chat.html",
-					"views/mee/mee.html",
-					"views/faxian/faxian.html"
+					"views/mee/mee.html"
 				],
 				"priority": 0
 			},

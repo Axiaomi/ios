@@ -1,31 +1,39 @@
 {
-<<<<<<< HEAD
 	"index.html": {
 		"resources": [
 			"views/home/home.html"
-=======
-<<<<<<< HEAD
-	"index.html": {
-		"resources": [
-			"views/home/home.html",
-			"views/faxian/faxian.html"
->>>>>>> 07505e6c417e782304b0eab00bc7fd3aa1b49030
 		],
 		"refer": [
-			"views/home/home.html",
-			"views/zixun/zixun.html",
 			"views/chat/chat.html",
+			"views/home/home.html",
 			"views/mee/mee.html",
-			"views/faxian/faxian.html"
+			"views/zixun/zixun.html",
+			"views/faxian/faxian.html",
+			"views/login/login.html"
 		]
-<<<<<<< HEAD
 	},
 	"views/mee/mee.html": {
 		"refer": [
-			"views/mee/mee_xq.html",
-			"views/mee/mee_shezhi.html",
+			"views/mee/mee_shoucang.html",
 			"views/mee/mee_tiezi.html",
-			"views/mee/mee_shoucang.html"
+			"views/mee/mee_shezhi.html",
+			"views/mee/mee_xq.html",
+			"views/login/login.html"
+		]
+	},
+	"views/home/home.html": {
+		"refer": [
+			"views/home_xq/home_xq.html"
+		]
+	},
+	"views/zixun/zixun.html": {
+		"refer": [
+			"views/home_xq/home_xq.html"
+		]
+	},
+	"views/chat/chat.html": {
+		"refer": [
+			"views/login/login.html"
 		]
 	},
 	"views/mee/mee_shezhi.html": {
@@ -37,22 +45,10 @@
 		"refer": [
 			"views/login/reg.html"
 		]
+	},
+	"views/mee/mee_shoucang.html": {
+		"refer": [
+			"views/home_xq/home_xq.html"
+		]
 	}
-=======
-	}
-=======
-  "index.html": {
-    "resources": [
-      "views/home/home.html"
-    ],
-    "refer": [
-      "views/home/home.html",
-      "views/zixun/zixun.html",
-      "views/chat/chat.html",
-      "views/mee/mee.html",
-      "views/faxian/faxian.html"
-    ]
-  }
->>>>>>> 6a36b52f3f9086e93ab314f2863d0475483a1c2e
->>>>>>> 07505e6c417e782304b0eab00bc7fd3aa1b49030
 }

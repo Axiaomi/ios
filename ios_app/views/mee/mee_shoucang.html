@@ -7,16 +7,384 @@
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<link href="../../public/css/mui.min.css" rel="stylesheet" />
 		<style type="text/css">
+			html,
+			body {
+				background: #fff;
+			}
 			
+			.mui-bar {
+				background: #705de8;
+			}
+			
+			.mui-pull-left {
+				color: #fff !important;
+			}
+			
+			.mui-title {
+				color: #fff;
+			}
+			
+			.mui-bar-nav {
+				top: 0;
+				-webkit-box-shadow: 0 1px 6px #ccc;
+				box-shadow: none;
+			}
+			
+			#pullrefresh {
+				margin-top: 12%;
+			}
+			
+			html,
+			body {
+				background-color: #efeff4;
+			}
+			
+			.mui-bar-nav {
+				top: 0;
+				box-shadow: none !important;
+			}
+			
+			.mui-bar-nav~.mui-content .mui-slider.mui-fullscreen {
+				top: 44% !important;
+			}
+			
+			.mui-pull-top-tips {
+				position: absolute;
+				top: -20px;
+				left: 50%;
+				margin-left: -25px;
+				width: 40px;
+				height: 40px;
+				border-radius: 100%;
+				z-index: 1;
+			}
+			
+			.mui-bar~.mui-pull-top-tips {
+				top: 24px;
+			}
+			
+			.mui-pull-top-wrapper {
+				width: 42px;
+				height: 42px;
+				display: block;
+				text-align: center;
+				background-color: #efeff4;
+				border: 1px solid #ddd;
+				border-radius: 25px;
+				background-clip: padding-box;
+				box-shadow: 0 4px 10px #bbb;
+				overflow: hidden;
+			}
+			
+			.mui-pull-top-tips.mui-transitioning {
+				-webkit-transition-duration: 200ms;
+				transition-duration: 200ms;
+			}
+			
+			.mui-pull-top-tips .mui-pull-loading {
+				/*-webkit-backface-visibility: hidden;
+    -webkit-transition-duration: 400ms;
+    transition-duration: 400ms;*/
+				margin: 0;
+			}
+			
+			.mui-pull-top-wrapper .mui-icon,
+			.mui-pull-top-wrapper .mui-spinner {
+				margin-top: 7px;
+			}
+			
+			.mui-pull-top-wrapper .mui-icon.mui-reverse {
+				/*-webkit-transform: rotate(180deg) translateZ(0);*/
+			}
+			
+			.mui-pull-bottom-tips {
+				text-align: center;
+				background-color: #efeff4;
+				font-size: 15px;
+				line-height: 40px;
+				color: #777;
+			}
+			
+			.mui-pull-top-canvas {
+				overflow: hidden;
+				background-color: #fafafa;
+				border-radius: 40px;
+				box-shadow: 0 4px 10px #bbb;
+				width: 40px;
+				height: 40px;
+				margin: 0 auto;
+			}
+			
+			.mui-pull-top-canvas canvas {
+				width: 40px;
+			}
+			
+			.mui-slider-indicator.mui-segmented-control {
+				background-color: #efeff4;
+			}
+			
+			.mui-title {
+				color: #fff !important;
+			}
+			
+			.mui-segmented-control.mui-segmented-control-inverted .mui-control-item.mui-active {
+				color: #9266f9 !important;
+			}
+			
+			.mui-segmented-control.mui-segmented-control-inverted {
+				width: 92% !important;
+			}
+			
+			#mui {
+				float: right;
+				height: 30px;
+				margin-top: -7% !important;
+				margin-right: 2%;
+				z-index: 99;
+			}
+			
+			.mui-icon {
+				font-size: 20px !important;
+			}
+			
+			.mui-icon-bars:before {
+				color: #a18e8e !important;
+			}
+			
+			.nr .nr_img {
+				width: 100%;
+				display: flex;
+				margin-bottom: 4%;
+			}
+			
+			.nr .nr_img img {
+				width: 32% !important;
+				height: 20% !important;
+			}
+			
+			.nr .nr_img img:nth-child(2) {
+				margin: 0% 2%;
+			}
+			
+			.nr_wei span:nth-child(2) {
+				color: #C0C0C0;
+			}
+			
+			.nr2 {
+				display: flex;
+			}
+			
+			.nr2_bt {
+				display: flex;
+				flex-wrap: wrap;
+				align-items: center;
+				flex: 4 !important;
+			}
+			
+			.nr2_bt h4 {
+				width: 100%;
+				height: 35px;
+				display: -webkit-box;
+				-webkit-box-orient: vertical;
+				-webkit-line-clamp: 2;
+				overflow: hidden;
+			}
+			
+			.nr2 .nr_img {
+				flex: 2;
+			}
 		</style>
 	</head>
 
 	<body>
-		 
-		
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">我的收藏</h1>
+		</header>
+		<div id="pullrefresh">
+			<ul class="mui-table-view">
+
+			</ul>
+		</div>
 		<script src="../../public/js/mui.min.js"></script>
 		<script type="text/javascript">
-			mui.init()
+			mui.init({
+				pullRefresh: {
+					container: '#pullrefresh',
+					down: {
+						style: 'circle',
+						callback: pulldownRefresh
+					},
+					up: {
+						auto: true,
+						contentrefresh: '正在加载...',
+						callback: pullupRefresh
+					}
+				}
+			});
+
+			//			console.info(user_id);
+			//			console.info(appid);
+			var count = 0;
+			var message = 1;
+
+			function pullupRefresh() {
+				var user_id = localStorage.getItem('user_id');
+				var appid = localStorage.getItem('appid');
+				setTimeout(function() {
+					mui('#pullrefresh').pullRefresh().endPullupToRefresh((++count > 2)); //参数为true代表没有更多数据了。
+					var table = document.body.querySelector('.mui-table-view');
+					var cells = document.body.querySelectorAll('.mui-table-view-cell mui-media');
+					var newCount = cells.length > 0 ? 5 : 20; //首次加载20条，满屏
+					console.info(user_id);
+					console.info(appid);
+					console.info(count);
+					mui.ajax('http://9.988lhkj.com/life_ction', {
+						data: {
+							userid: user_id,
+							appid: appid,
+							page: count,
+							pageSize: 20,
+						},
+						dataType: 'json', //服务器返回json格式数据
+						type: 'post', //HTTP请求类型
+						timeout: 10000, //超时时间设置为10秒；
+						headers: {
+							'Content-Type': 'application/json'
+						},
+						success: function(data) {
+							//服务器返回响应，根据响应结果，分析是否登录成功；
+							console.info(JSON.stringify(data));
+							for(var i = cells.length, len = i + newCount; i < len; i++) {
+								if(!data.data[i]) {
+									mui.toast('没有更多信息了');
+									mui('#pullrefresh').pullRefresh().disablePullupToRefresh(true);
+									console.info();
+									message = 0;
+									return
+								} else {
+									var li = document.createElement('li');
+									li.className = 'mui-table-view-cell mui-media';
+									li.dataset.id = data.data[i].id;
+									li.innerHTML = '<div class="nr2">' +
+										'<div class="nr2_bt">' +
+										'<h4 class="">' + data.data[i].title + '</h4>' +
+										'<div class="nr_wei">' +
+										'<span id="">' + data.data[i].author + '</span>' +
+										'<span id="">' + data.data[i].time + '</span>' +
+										'</div>' +
+										'</div>' +
+										'<div class="nr_img">' +
+										'<img  style="height: 100px !important;" src="' + data.data[i].thumb + '" />' +
+										'</div>' +
+										'</div>';
+									//									li.innerHTML = '<a href="javascript:;"><img class="mui-media-object mui-pull-left" src=' + data.data[i].thumb + '><div class="mui-media-body">' + data.data[i].title + '<p class="mui-ellipsis">' + data.data[i].time + '</p></div></a>';
+									table.appendChild(li);
+								}
+
+							}
+
+						},
+						error: function(xhr, type, errorThrown) {
+							//异常处理；
+							console.log(type);
+						}
+					});
+				}, 1500);
+			}
+
+			function addData() {
+				var user_id = localStorage.getItem('user_id');
+				var appid = localStorage.getItem('appid');
+				var table = document.body.querySelector('.mui-table-view');
+				var cells = document.body.querySelectorAll('.mui-table-view-cell mui-media');
+				mui.ajax('http://9.988lhkj.com/life_ction', {
+					data: {
+						userid: user_id,
+						appid: appid,
+						page: count,
+						pageSize: 20,
+					},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					timeout: 10000, //超时时间设置为10秒；
+					headers: {
+						'Content-Type': 'application/json'
+					},
+					success: function(data) {
+						for(var i = cells.length, len = i + 5; i < len; i++) {
+							if(!data.data[i]) {
+								mui.toast('没有更多信息了');
+								mui('#pullrefresh').pullRefresh().disablePullupToRefresh(true);
+								console.info(2);
+								message = 0;
+								return
+							} else {
+								var li = document.createElement('li');
+								li.className = 'mui-table-view-cell mui-media';
+								li.dataset.id = data.data[i].id;
+								li.innerHTML = '<div class="nr2">' +
+									'<div class="nr2_bt">' +
+									'<h4 class="">' + data.data[i].title + '</h4>' +
+									'<div class="nr_wei">' +
+									'<span id="">' + data.data[i].author + '</span>' +
+									'<span id="">' + data.data[i].time + '</span>' +
+									'</div>' +
+									'</div>' +
+									'<div class="nr_img">' +
+									'<img  style="height: 100px !important;" src="' + data.data[i].thumb + '" />' +
+									'</div>' +
+									'</div>';
+								//下拉刷新，新纪录插到最前面；
+								table.insertBefore(li, table.firstChild);
+							}
+						}
+					}
+				})
+			}
+			/**
+			 * 下拉刷新具体业务实现
+			 */
+			function pulldownRefresh() {
+				setTimeout(function() {
+					addData();
+					mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
+					if(message) {
+						mui.toast("为你推荐了5篇文章");
+					}
+
+				}, 1500);
+			}
+
+			mui('#pullrefresh').on('tap', '.mui-table-view-cell', function() {
+				//			console.info(1);
+				var id = this.dataset.id;
+				mui.openWindow({
+					url: '../home_xq/home_xq.html',
+					id: id,
+					styles: {
+						// top:newpage-top-position,//新页面顶部位置
+						// bottom:newage-bottom-position,//新页面底部位置
+						width: '100%', //新页面宽度，默认为100%
+						height: '100%', //新页面高度，默认为100%
+
+					},
+					extras: {
+						//自定义扩展参数，可以用来处理页面间传值
+						id: id,
+					},
+					createNew: false, //是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+					show: {
+						autoShow: true,
+						aniShow: 'zoom-fade-out', //页面显示动画，默认为”slide-in-right“；
+						duration: 300, //页面动画持续时间，Android平台默认100毫秒，iOS平台默认200毫秒；
+					},
+					waiting: {
+						autoShow: true, //自动显示等待框，默认为true
+						title: '正在加载...', //等待对话框上显示的提示内容
+					}
+				})
+			});
 		</script>
 	</body>
 

@@ -1,6 +1,10 @@
 html,
 body {
     background-color: #efeff4;
+}.mui-bar-nav {
+    top: 0;
+    /*-webkit-box-shadow: 0 1px 6px #ccc;*/
+     box-shadow: none !important; 
 }
 .mui-bar~.mui-content .mui-fullscreen {
     top: 44px;
@@ -92,4 +96,54 @@ body {
 }
 .mui-icon-bars:before {
     color: #a18e8e !important;
+}
+
+#mui{
+	float: right;
+	height: 30px;
+	margin-top: -7% !important;
+	margin-right: 2%;
+	z-index: 99;
+}
+.mui-icon {
+    font-size: 20px !important;
+}
+.mui-icon-bars:before {
+    color: #a18e8e !important;
+}
+.nr .nr_img{
+	width: 100%;
+	display: flex;
+	margin-bottom: 4%;
+}
+.nr .nr_img img{
+	width: 32% !important;
+	height: 20% !important;
+
+}
+.nr .nr_img img:nth-child(2){
+	margin: 0% 2%;
+}
+.nr_wei span:nth-child(2){
+	color: #C0C0C0;
+}
+.nr2{
+	display: flex;
+}
+.nr2_bt{
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	flex: 4 !important;
+}
+.nr2_bt h4{
+	width: 100%;
+	height: 36px;
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 2;
+	overflow: hidden;
+}
+.nr2 .nr_img{
+	flex: 2;
 }

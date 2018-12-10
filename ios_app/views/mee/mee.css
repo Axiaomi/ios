@@ -47,8 +47,9 @@ html{
 }
 
 .header_img {
-	width: 100%;
-	border-radius: 50%;
+    width: 66px;
+    height: 66px;
+    border-radius: 50%;
 }
 
 .header_mingzi p {

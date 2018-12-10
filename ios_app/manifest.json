@@ -10,7 +10,7 @@
 	"icons": {
 		"72": "icon.png"
 	},
-	"launch_path": "views/mee/mee.html",/*应用的入口页面，默认为根目录下的index.html；支持网络地址，必须以http://或https://开头*/
+	"launch_path": "index.html",/*应用的入口页面，默认为根目录下的index.html；支持网络地址，必须以http://或https://开头*/
 	"developer": {
 		"name": "",/*开发者名称*/
 		"email": "",/*开发者邮箱地址*/
@@ -136,7 +136,8 @@
 				"refer": [
 					"views/zixun/zixun.html",
 					"views/chat/chat.html",
-					"views/mee/mee.html"
+					"views/mee/mee.html",
+					"views/login/login.html"
 				],
 				"priority": 0
 			},
@@ -146,7 +147,8 @@
 					"views/mee/mee_xq.html",
 					"views/mee/mee_shezhi.html",
 					"views/mee/mee_tiezi.html",
-					"views/mee/mee_shoucang.html"
+					"views/mee/mee_shoucang.html",
+					"views/login/login.html"
 				],
 				"priority": 0
 			},
@@ -161,6 +163,34 @@
 				"resources": [],
 				"refer": [
 					"views/login/reg.html"
+				],
+				"priority": 0
+			},
+			"views/home/home.html": {
+				"resources": [],
+				"refer": [
+					"views/home_xq/home_xq.html"
+				],
+				"priority": 0
+			},
+			"views/zixun/zixun.html": {
+				"resources": [],
+				"refer": [
+					"views/home_xq/home_xq.html"
+				],
+				"priority": 0
+			},
+			"views/chat/chat.html": {
+				"resources": [],
+				"refer": [
+					"views/login/login.html"
+				],
+				"priority": 0
+			},
+			"views/mee/mee_shoucang.html": {
+				"resources": [],
+				"refer": [
+					"views/home_xq/home_xq.html"
 				],
 				"priority": 0
 			}

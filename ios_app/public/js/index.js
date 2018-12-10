@@ -86,22 +86,21 @@ mui.plusReady(function() {
 			fu.append(news_wv);
 		}
 		var ind = 'home';
+		mui(".mui-bar").on('tap', '#chat', function(e) {
+			
+			var id = localStorage.getItem('user_id');
+			
+			if(id == null) {
+				alert('未登录.前往登录') 
+				mui.openWindow('./views/login/login.html', 'login');  
+				return
+			}
+		});
 		mui(".mui-bar").on('tap', '.mui-tab-item', function(e) {
-					
 			if(this.dataset.id === ind) return;
 			plus.webview.getWebviewById(ind).hide();
 			plus.webview.getWebviewById(this.dataset.id).show();
-			ind = this.dataset.id;
-			var id = localStorage.getItem('user_id');
-			if(!id==null){
-				
-			}else{
-				var wobj = plus.webview.getWebviewById(ind);
-				wobj.reload(true);
-			}
-
-			
-			
+			ind = this.dataset.id;	
 		});
 
 	})

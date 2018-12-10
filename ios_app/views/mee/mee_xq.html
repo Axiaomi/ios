@@ -59,6 +59,7 @@
 			.right span:nth-child(1) {
 				flex: 8;
 			}
+			
 			.right span:nth-child(2) {
 				color: #C0C0C0;
 			}
@@ -70,7 +71,7 @@
 			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
 			<h1 class="mui-title">个人中心</h1>
 		</header>
-		<ul class="mui-table-view">
+		<ul id="me" class="mui-table-view">
 			<li class="huantoux">
 				<div class="">
 					头像
@@ -98,15 +99,91 @@
 					</span>
 				</a>
 			</li>
-			<li class="mui-table-view-cell">
-				<a class="right">
+			<li  class="mui-table-view-cell">
+				<a id="gengduo" class="right">
 					更多
 				</a>
 			</li>
 		</ul>
 		<script src="../../public/js/mui.min.js"></script>
 		<script type="text/javascript">
-			mui.init()
+			mui.init();
+			document.getElementById('gengduo').addEventListener('tap', function(e) {
+				mui.alert('暂无服务,我们会不断完善功能');
+			});
+			mui.plusReady(function() {
+
+				window.addEventListener('refresh', function(e) { //执行刷新
+					location.reload();
+				});
+				var id = localStorage.getItem('user_id');
+				console.info(id);
+				//console.info(id);
+				mui.ajax('http://9.988lhkj.com/user_info', {
+					data: {
+						userid: id,
+					},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					timeout: 10000, //超时时间设置为10秒；
+					headers: {
+						'Content-Type': 'application/json'
+					},
+					success: function(data) {
+
+						//服务器返回响应，根据响应结果，分析是否登录成功;
+						console.info(JSON.stringify(data));
+						var me = document.getElementById('me');
+
+						if(data.data.phone === 0) {
+							data.data.phone = '未设置';
+						}
+						if(data.data.emall == 0) {
+							data.data.emall = '未设置';
+						}
+						me.innerHTML = '<li class="huantoux">'+
+						'<div class="">'+
+						'头像'+
+						'</div>'+
+//						'<img src="'+data.data.img+'" />'+
+						'<img src="../../public/img/timg1.jpg" />'+
+						'</li>'+
+						'<li class="mui-table-view-cell">'+
+						'<a class="right">'+
+
+						'<span id="">'+
+						'昵称'+
+						'</span>'+
+						'<span id="">'+
+						''+data.data.nickname+''+
+						'</span>'+
+						'</a>'+
+						'</li>'+
+						'<li class="mui-table-view-cell">'+
+						'<a class="right">'+
+						'<span id="">'+
+						'号码'+
+						'</span>'+
+						'<span id="">'+
+						''+ data.data.username + ''+
+						'</span>'+
+						'</a>'+
+						'</li>'+
+						'<li class="mui-table-view-cell">'+
+						'<a id="gengduo" class="right">'+
+						'更多'+
+						'</a>'+
+						'</li>';
+					},
+					error: function(xhr, type, errorThrown) {
+						//异常处理；的
+						console.log(type);
+
+					}
+				});
+	
+			});
+	
 		</script>
 	</body>
 

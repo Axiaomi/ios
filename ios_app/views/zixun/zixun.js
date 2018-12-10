@@ -1,81 +1,1543 @@
-mui.init();
-			(function($) {
-				//阻尼系数
-				var deceleration = mui.os.ios?0.003:0.0009;
-				$('.mui-scroll-wrapper').scroll({
-					bounce: false,
-					indicators: true, //是否显示滚动条
-					deceleration:deceleration
-				});
-				$.ready(function() {
-					//循环初始化所有下拉刷新，上拉加载。
-					$.each(document.querySelectorAll('.mui-slider-group .mui-scroll'), function(index, pullRefreshEl) {
-						$(pullRefreshEl).pullToRefresh({
-							down: {
-								callback: function() {
-									var self = this;
-									setTimeout(function() {
-										var ul = self.element.querySelector('.mui-table-view');
-										ul.insertBefore(createFragment(ul, index, 10, true), ul.firstChild);
-										self.endPullDownToRefresh();
-									}, 1000);
-								}
-							},
-							up: {
-								callback: function() {
-									var self = this;
-									setTimeout(function() {
-										var ul = self.element.querySelector('.mui-table-view');
-										ul.appendChild(createFragment(ul, index, 5));
-										self.endPullUpToRefresh();
-									}, 1000);
-								}
-							}
-						});
-					});
-					
-//					var createFragment = function(ul, index, count, reverse) {
-//						var length = ul.querySelectorAll('li').length;
-//						var fragment = document.createDocumentFragment();
-//						var li;
-//						for (var i = 0; i < count; i++) {
-//							li = document.createElement('li');
-//							li.className = 'mui-table-view-cell';
-//							li.innerHTML = '第' + (index + 1) + '个选项卡子项-' + (length + (reverse ? (count - i) : (i + 1)));
-//							fragment.appendChild(li);
-//						}
-//						return fragment;
-//					};
+mui.init({
+	pullRefresh: {
+		container: '#pullrefresh',
+		down: {
+			style: 'circle',
+			callback: pulldownRefresh,
+			auto: true,
+//			offset:'50px',
+		},
+		up: {
+//			auto: true,
+			contentrefresh: '正在加载...',
+			callback: pullupRefresh
+		}
+	}
+});
+mui.plusReady(function() {
+	plus.webview.currentWebview().setStyle({
+		scrollIndicator: 'none'
+	});
+});
 
-//								<li class="mui-table-view-cell mui-media">
-//							        
-//							    </li>
+var count = 0;
+//var page = 1;
 
+function pullupRefresh() {
+	setTimeout(function() {
+		mui('#pullrefresh').pullRefresh().endPullup((++count > 2)); //参数为true代表没有更多数据了。
+				var page = 1;
+		mui.ajax('http://9.988lhkj.com/life_content', {
+			data: {
+				page: page,
+				pageSize: 5,
+				class_id: 7,
+			},
+			dataType: 'json',
+			type: 'post', //HTTP请求类型
+			timeout: 10000,
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			success: function(data) {
+				//alert(0)
 
-					var createFragment = function(ul, index, count, reverse) {
-						
-						var length = ul.querySelectorAll('li').length;
-						
-						var fragment = document.createDocumentFragment();
-						
-						var li;
-						
-						for (var i = 0; i < count; i++) {
-							
-							li = document.createElement('li');
-							li.className = 'mui-table-view-cell mui-media';
-							li.innerHTML = '<a href="javascript:;">' +
-								'<img class="mui-media-object mui-pull-right" src="http://placehold.it/40x30">' +
-								'<div class="mui-media-body">' +
-								'幸福<p class="mui-ellipsis">第' + (index + 1) + '个选项卡子项-' + (length + (reverse ? (count - i) : (i + 1)))+'</p>' +
-								'</div>' +
-								'</a>';
-							fragment.appendChild(li);
-						
-						}
-						return fragment;
-					};
-					
-				});
+				//			var data = JSON.parse(data);;
+				//获得服务器响应
+				//->判断
+				//							console.debug(JSON.stringify(data));
+				console.info(JSON.stringify(data))
+
+				var table = document.body.querySelector('.ul_sh');
+				var cells = document.body.querySelectorAll('.mui-table-view-cell');
+				var newCount = cells.length > 0 ? 5 : 20; //首次加载20条，满屏
+				//							var j = 0;
+				for(var i = cells.length, len = i + newCount; i < len; i++) {
+					if(!data.data[i]) {
+//						mui.toast('没有信息了');
+						return
+					}
+					var li = document.createElement('li');
+					li.className = 'mui-table-view-cell';
+					li.dataset.id = data.data[i].id;
+
+					//								j = j + 1;
+					if(data.data[i].images.length < 7) {
+						li.innerHTML = '<div class="nr2">' +
+							'<div class="nr2_bt">' +
+							'<h4 class="">' + data.data[i].title + '</h4>' +
+							'<div class="nr_wei">' +
+							'<span id="">' + data.data[i].author + '</span>' +
+							'<span id="">' + data.data[i].time + '</span>' +
+							'</div>' +
+							'</div>' +
+							'<div class="nr_img">' +
+							'<img  style="height: 100px !important;" src="' + data.data[i].images[0] + '" />' +
+							'</div>' +
+							'</div>';
+					} else {
+						li.innerHTML = '<div class="nr">' +
+							'<h4 class="">' +
+							'' + data.data[i].title + '' +
+							'	</h4>' +
+							'<div class="nr_img">' +
+							'<img  style="height: 70px !important;" src="' + data.data[i].images[2] + '" />' +
+							'<img  style="height: 70px !important;" src="' + data.data[i].images[3] + '" />' +
+							'<img  style="height: 70px !important;" src="' + data.data[i].images[4] + '" />' +
+							'</div>' +
+							'<div class="nr_wei">' +
+							'<span id="">' +
+							'' + data.data[i].author + '' +
+							'</span>' +
+							'<span id="">' +
+							'' + data.data[i].time + '' +
+							'	</span>' +
+							'	</div>' +
+							'</div>';
+					}
+					table.appendChild(li);
+				}
+				page = page + 1;
+			},
+
+		}, 1500);
+
+		//				22222222222222
+				var page = 1;
+		mui.ajax('http://9.988lhkj.com/life_content', {
+			data: {
+				page: page,
+				pageSize: 15,
+				class_id: 8,
+			},
+			dataType: 'json',
+			type: 'post', //HTTP请求类型
+			timeout: 10000,
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			success: function(data) {
+				//			var data = JSON.parse(data);;
+				//获得服务器响应
+				//->判断
+				//							console.debug(JSON.stringify(data));
+				console.info(JSON.stringify(data))
+
+				var table = document.body.querySelector('.ul_2');
+				var cells = document.body.querySelectorAll('.mui-table-view-cell');
+				var newCount = cells.length > 0 ? 5 : 20; //首次加载20条，满屏
+				//							var j = 0;
+				for(var i = cells.length, len = i + newCount; i < len; i++) {
+					if(!data.data[i]) {
+						mui.toast('没有信息了');
+						return
+					}
+					var li = document.createElement('li');
+					li.className = 'mui-table-view-cell';
+					li.dataset.id = data.data[i].id;
+
+					//								j = j + 1;
+					if(data.data[i].images.length < 7) {
+						li.innerHTML = '<div class="nr2">' +
+							'<div class="nr2_bt">' +
+							'<h4 class="">' + data.data[i].title + '</h4>' +
+							'<div class="nr_wei">' +
+							'<span id="">' + data.data[i].author + '</span>' +
+							'<span id="">' + data.data[i].time + '</span>' +
+							'</div>' +
+							'</div>' +
+							'<div class="nr_img">' +
+							'<img  style="height: 100px !important;" src="' + data.data[i].images[0] + '" />' +
+							'</div>' +
+							'</div>';
+					} else {
+						li.innerHTML = '<div class="nr">' +
+							'<h4 class="">' +
+							'' + data.data[i].title + '' +
+							'	</h4>' +
+							'<div class="nr_img">' +
+							'<img  style="height: 70px !important;" src="' + data.data[i].images[2] + '" />' +
+							'<img  style="height: 70px !important;" src="' + data.data[i].images[3] + '" />' +
+							'<img  style="height: 70px !important;" src="' + data.data[i].images[4] + '" />' +
+							'</div>' +
+							'<div class="nr_wei">' +
+							'<span id="">' +
+							'' + data.data[i].author + '' +
+							'</span>' +
+							'<span id="">' +
+							'' + data.data[i].time + '' +
+							'	</span>' +
+							'	</div>' +
+							'</div>';
+					}
+					//					table.appendChild(li);
+				}
+				page = page + 1;
+			},
+
+		}, 1500);
+
+		//				333333333
+				var page = 1;
+
+		mui.ajax('http://9.988lhkj.com/life_content', {
+			data: {
+				page: page,
+				pageSize: 15,
+				class_id: 9,
+			},
+			dataType: 'json',
+			type: 'post', //HTTP请求类型
+			timeout: 10000,
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			success: function(data) {
+				//			var data = JSON.parse(data);;
+				//获得服务器响应
+				//->判断
+				//							console.debug(JSON.stringify(data));
+				console.info(JSON.stringify(data))
+
+				var table = document.body.querySelector('.ul_3');
+				var cells = document.body.querySelectorAll('.mui-table-view-cell');
+				var newCount = cells.length > 0 ? 5 : 12; //首次加载20条，满屏
+				//							var j = 0;
+				for(var i = cells.length, len = i + newCount; i < len; i++) {
+					if(!data.data[i]) {
+						mui.toast('没有信息了');
+						return
+					}
+					var li = document.createElement('li');
+					li.className = 'mui-table-view-cell';
+					li.dataset.id = data.data[i].id;
+
+					//								j = j + 1;
+					if(data.data[i].images.length < 7) {
+						li.innerHTML = '<div class="nr2">' +
+							'<div class="nr2_bt">' +
+							'<h4 class="">' + data.data[i].title + '</h4>' +
+							'<div class="nr_wei">' +
+							'<span id="">' + data.data[i].author + '</span>' +
+							'<span id="">' + data.data[i].time + '</span>' +
+							'</div>' +
+							'</div>' +
+							'<div class="nr_img">' +
+							'<img  style="height: 100px !important;" src="' + data.data[i].images[0] + '" />' +
+							'</div>' +
+							'</div>';
+					} else {
+						li.innerHTML = '<div class="nr">' +
+							'<h4 class="">' +
+							'' + data.data[i].title + '' +
+							'	</h4>' +
+							'<div class="nr_img">' +
+							'<img  style="height: 70px !important;" src="' + data.data[i].images[2] + '" />' +
+							'<img  style="height: 70px !important;" src="' + data.data[i].images[3] + '" />' +
+							'<img  style="height: 70px !important;" src="' + data.data[i].images[4] + '" />' +
+							'</div>' +
+							'<div class="nr_wei">' +
+							'<span id="">' +
+							'' + data.data[i].author + '' +
+							'</span>' +
+							'<span id="">' +
+							'' + data.data[i].time + '' +
+							'	</span>' +
+							'	</div>' +
+							'</div>';
+					}
+					table.appendChild(li);
+				}
+				page = page + 1;
+			},
+
+		}, 1500);
+
+		//				44444444
+				var page = 1
+
+		mui.ajax('http://9.988lhkj.com/life_content', {
+			data: {
+				page: page,
+				pageSize: 15,
+				class_id: 10,
+			},
+			dataType: 'json',
+			type: 'post', //HTTP请求类型
+			timeout: 10000,
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			success: function(data) {
+				//			var data = JSON.parse(data);;
+				//获得服务器响应
+				//->判断
+				//							console.debug(JSON.stringify(data));
+				console.info(JSON.stringify(data))
+
+				var table = document.body.querySelector('.ul_4');
+				var cells = document.body.querySelectorAll('.mui-table-view-cell');
+				var newCount = cells.length > 0 ? 5 : 20; //首次加载20条，满屏
+				//							var j = 0;
+				for(var i = cells.length, len = i + newCount; i < len; i++) {
+					if(!data.data[i]) {
+						mui.toast('没有信息了');
+						return
+					}
+					var li = document.createElement('li');
+					li.className = 'mui-table-view-cell';
+					li.dataset.id = data.data[i].id;
+
+					//								j = j + 1;
+					if(data.data[i].images.length < 7) {
+						li.innerHTML = '<div class="nr2">' +
+							'<div class="nr2_bt">' +
+							'<h4 class="">' + data.data[i].title + '</h4>' +
+							'<div class="nr_wei">' +
+							'<span id="">' + data.data[i].author + '</span>' +
+							'<span id="">' + data.data[i].time + '</span>' +
+							'</div>' +
+							'</div>' +
+							'<div class="nr_img">' +
+							'<img  style="height: 100px !important;" src="' + data.data[i].images[0] + '" />' +
+							'</div>' +
+							'</div>';
+					} else {
+						li.innerHTML = '<div class="nr">' +
+							'<h4 class="">' +
+							'' + data.data[i].title + '' +
+							'	</h4>' +
+							'<div class="nr_img">' +
+							'<img  style="height: 70px !important;" src="' + data.data[i].images[2] + '" />' +
+							'<img  style="height: 70px !important;" src="' + data.data[i].images[3] + '" />' +
+							'<img  style="height: 70px !important;" src="' + data.data[i].images[4] + '" />' +
+							'</div>' +
+							'<div class="nr_wei">' +
+							'<span id="">' +
+							'' + data.data[i].author + '' +
+							'</span>' +
+							'<span id="">' +
+							'' + data.data[i].time + '' +
+							'	</span>' +
+							'	</div>' +
+							'</div>';
+					}
+					table.appendChild(li);
+				}
+				page = page + 1;
+			},
+
+		}, 1500);
+
+		//				5555555555
+					var page = 1
+
+		mui.ajax('http://9.988lhkj.com/life_content', {
+			data: {
+				page: page,
+				pageSize: 15,
+				class_id: 11,
+			},
+			dataType: 'json',
+			type: 'post', //HTTP请求类型
+			timeout: 10000,
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			success: function(data) {
+				//			var data = JSON.parse(data);;
+				//获得服务器响应
+				//->判断
+				//							console.debug(JSON.stringify(data));
+				console.info(JSON.stringify(data))
+
+				var table = document.body.querySelector('.ul_5');
+				var cells = document.body.querySelectorAll('.mui-table-view-cell');
+				var newCount = cells.length > 0 ? 5 : 20; //首次加载20条，满屏
+				//							var j = 0;
+				for(var i = cells.length, len = i + newCount; i < len; i++) {
+					if(!data.data[i]) {
+						mui.toast('没有信息了');
+						return
+					}
+					var li = document.createElement('li');
+					li.className = 'mui-table-view-cell';
+					li.dataset.id = data.data[i].id;
+
+					//								j = j + 1;
+					if(data.data[i].images.length < 7) {
+						li.innerHTML = '<div class="nr2">' +
+							'<div class="nr2_bt">' +
+							'<h4 class="">' + data.data[i].title + '</h4>' +
+							'<div class="nr_wei">' +
+							'<span id="">' + data.data[i].author + '</span>' +
+							'<span id="">' + data.data[i].time + '</span>' +
+							'</div>' +
+							'</div>' +
+							'<div class="nr_img">' +
+							'<img  style="height: 100px !important;" src="' + data.data[i].images[0] + '" />' +
+							'</div>' +
+							'</div>';
+					} else {
+						li.innerHTML = '<div class="nr">' +
+							'<h4 class="">' +
+							'' + data.data[i].title + '' +
+							'	</h4>' +
+							'<div class="nr_img">' +
+							'<img  style="height: 70px !important;" src="' + data.data[i].images[2] + '" />' +
+							'<img  style="height: 70px !important;" src="' + data.data[i].images[3] + '" />' +
+							'<img  style="height: 70px !important;" src="' + data.data[i].images[4] + '" />' +
+							'</div>' +
+							'<div class="nr_wei">' +
+							'<span id="">' +
+							'' + data.data[i].author + '' +
+							'</span>' +
+							'<span id="">' +
+							'' + data.data[i].time + '' +
+							'	</span>' +
+							'	</div>' +
+							'</div>';
+					}
+					table.appendChild(li);
+				}
+				page = page + 1;
+			},
+
+		}, 1500);
+
+		//			6666
+					var page = 1
+		mui.ajax('http://9.988lhkj.com/life_content', {
+			data: {
+				page: page,
+				pageSize: 15,
+				class_id: 12,
+			},
+			dataType: 'json',
+			type: 'post', //HTTP请求类型
+			timeout: 10000,
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			success: function(data) {
+				//			var data = JSON.parse(data);;
+				//获得服务器响应
+				//->判断
+				//							console.debug(JSON.stringify(data));
+				console.info(JSON.stringify(data))
+
+				var table = document.body.querySelector('.ul_6');
+				var cells = document.body.querySelectorAll('.mui-table-view-cell');
+				var newCount = cells.length > 0 ? 5 : 20; //首次加载20条，满屏
+				//							var j = 0;
+				for(var i = cells.length, len = i + newCount; i < len; i++) {
+					if(!data.data[i]) {
+						mui.toast('没有信息了');
+						return
+					}
+					var li = document.createElement('li');
+					li.className = 'mui-table-view-cell';
+					li.dataset.id = data.data[i].id;
+
+					//								j = j + 1;
+					if(data.data[i].images.length < 7) {
+						li.innerHTML = '<div class="nr2">' +
+							'<div class="nr2_bt">' +
+							'<h4 class="">' + data.data[i].title + '</h4>' +
+							'<div class="nr_wei">' +
+							'<span id="">' + data.data[i].author + '</span>' +
+							'<span id="">' + data.data[i].time + '</span>' +
+							'</div>' +
+							'</div>' +
+							'<div class="nr_img">' +
+							'<img  style="height: 100px !important;" src="' + data.data[i].images[0] + '" />' +
+							'</div>' +
+							'</div>';
+					} else {
+						li.innerHTML = '<div class="nr">' +
+							'<h4 class="">' +
+							'' + data.data[i].title + '' +
+							'	</h4>' +
+							'<div class="nr_img">' +
+							'<img  style="height: 70px !important;" src="' + data.data[i].images[2] + '" />' +
+							'<img  style="height: 70px !important;" src="' + data.data[i].images[3] + '" />' +
+							'<img  style="height: 70px !important;" src="' + data.data[i].images[4] + '" />' +
+							'</div>' +
+							'<div class="nr_wei">' +
+							'<span id="">' +
+							'' + data.data[i].author + '' +
+							'</span>' +
+							'<span id="">' +
+							'' + data.data[i].time + '' +
+							'	</span>' +
+							'	</div>' +
+							'</div>';
+					}
+					table.appendChild(li);
+				}
+				page = page + 1;
+			},
+
+		}, 1500);
+		//			6666
+					var page = 1
+		mui.ajax('http://9.988lhkj.com/life_content', {
+			data: {
+				page: page,
+				pageSize: 15,
+				class_id: 13,
+			},
+			dataType: 'json',
+			type: 'post', //HTTP请求类型
+			timeout: 10000,
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			success: function(data) {
+				//			var data = JSON.parse(data);;
+				//获得服务器响应
+				//->判断
+				//							console.debug(JSON.stringify(data));
+				console.info(JSON.stringify(data))
+
+				var table = document.body.querySelector('.ul_7');
+				var cells = document.body.querySelectorAll('.mui-table-view-cell');
+				var newCount = cells.length > 0 ? 5 : 20; //首次加载20条，满屏
+				//							var j = 0;
+				for(var i = cells.length, len = i + newCount; i < len; i++) {
+					if(!data.data[i]) {
+						mui.toast('没有信息了');
+						return
+					}
+					var li = document.createElement('li');
+					li.className = 'mui-table-view-cell';
+					li.dataset.id = data.data[i].id;
+
+					//								j = j + 1;
+					if(data.data[i].images.length < 7) {
+						li.innerHTML = '<div class="nr2">' +
+							'<div class="nr2_bt">' +
+							'<h4 class="">' + data.data[i].title + '</h4>' +
+							'<div class="nr_wei">' +
+							'<span id="">' + data.data[i].author + '</span>' +
+							'<span id="">' + data.data[i].time + '</span>' +
+							'</div>' +
+							'</div>' +
+							'<div class="nr_img">' +
+							'<img  style="height: 100px !important;" src="' + data.data[i].images[0] + '" />' +
+							'</div>' +
+							'</div>';
+					} else {
+						li.innerHTML = '<div class="nr">' +
+							'<h4 class="">' +
+							'' + data.data[i].title + '' +
+							'	</h4>' +
+							'<div class="nr_img">' +
+							'<img  style="height: 70px !important;" src="' + data.data[i].images[2] + '" />' +
+							'<img  style="height: 70px !important;" src="' + data.data[i].images[3] + '" />' +
+							'<img  style="height: 70px !important;" src="' + data.data[i].images[4] + '" />' +
+							'</div>' +
+							'<div class="nr_wei">' +
+							'<span id="">' +
+							'' + data.data[i].author + '' +
+							'</span>' +
+							'<span id="">' +
+							'' + data.data[i].time + '' +
+							'	</span>' +
+							'	</div>' +
+							'</div>';
+					}
+					table.appendChild(li);
+				}
+				page = page + 1;
+			},
+
+		}, 1500);
+		//			6666
+					var page = 1
+		mui.ajax('http://9.988lhkj.com/life_content', {
+			data: {
+				page: page,
+				pageSize: 15,
+				class_id: 14,
+			},
+			dataType: 'json',
+			type: 'post', //HTTP请求类型
+			timeout: 10000,
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			success: function(data) {
+				//			var data = JSON.parse(data);;
+				//获得服务器响应
+				//->判断
+				//							console.debug(JSON.stringify(data));
+				console.info(JSON.stringify(data))
+
+				var table = document.body.querySelector('.ul_8');
+				var cells = document.body.querySelectorAll('.mui-table-view-cell');
+				var newCount = cells.length > 0 ? 5 : 20; //首次加载20条，满屏
+				//							var j = 0;
+				for(var i = cells.length, len = i + newCount; i < len; i++) {
+					if(!data.data[i]) {
+						mui.toast('没有信息了');
+						return
+					}
+					var li = document.createElement('li');
+					li.className = 'mui-table-view-cell';
+					li.dataset.id = data.data[i].id;
+
+					//								j = j + 1;
+					if(data.data[i].images.length < 7) {
+						li.innerHTML = '<div class="nr2">' +
+							'<div class="nr2_bt">' +
+							'<h4 class="">' + data.data[i].title + '</h4>' +
+							'<div class="nr_wei">' +
+							'<span id="">' + data.data[i].author + '</span>' +
+							'<span id="">' + data.data[i].time + '</span>' +
+							'</div>' +
+							'</div>' +
+							'<div class="nr_img">' +
+							'<img  style="height: 100px !important;" src="' + data.data[i].images[0] + '" />' +
+							'</div>' +
+							'</div>';
+					} else {
+						li.innerHTML = '<div class="nr">' +
+							'<h4 class="">' +
+							'' + data.data[i].title + '' +
+							'	</h4>' +
+							'<div class="nr_img">' +
+							'<img  style="height: 70px !important;" src="' + data.data[i].images[2] + '" />' +
+							'<img  style="height: 70px !important;" src="' + data.data[i].images[3] + '" />' +
+							'<img  style="height: 70px !important;" src="' + data.data[i].images[4] + '" />' +
+							'</div>' +
+							'<div class="nr_wei">' +
+							'<span id="">' +
+							'' + data.data[i].author + '' +
+							'</span>' +
+							'<span id="">' +
+							'' + data.data[i].time + '' +
+							'	</span>' +
+							'	</div>' +
+							'</div>';
+					}
+					table.appendChild(li);
+				}
+				page = page + 1;
+			},
+
+		}, 1500);
+		//			6666
+					var page = 1
+		mui.ajax('http://9.988lhkj.com/life_content', {
+			data: {
+				page: page,
+				pageSize: 15,
+				class_id: 15,
+			},
+			dataType: 'json',
+			type: 'post', //HTTP请求类型
+			timeout: 10000,
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			success: function(data) {
+				//			var data = JSON.parse(data);;
+				//获得服务器响应
+				//->判断
+				//							console.debug(JSON.stringify(data));
+				console.info(JSON.stringify(data))
+
+				var table = document.body.querySelector('.ul_9');
+				var cells = document.body.querySelectorAll('.mui-table-view-cell');
+				var newCount = cells.length > 0 ? 5 : 20; //首次加载20条，满屏
+				//							var j = 0;
+				for(var i = cells.length, len = i + newCount; i < len; i++) {
+					if(!data.data[i]) {
+						mui.toast('没有信息了');
+						return
+					}
+					var li = document.createElement('li');
+					li.className = 'mui-table-view-cell';
+					li.dataset.id = data.data[i].id;
+
+					//								j = j + 1;
+					if(data.data[i].images.length < 7) {
+						li.innerHTML = '<div class="nr2">' +
+							'<div class="nr2_bt">' +
+							'<h4 class="">' + data.data[i].title + '</h4>' +
+							'<div class="nr_wei">' +
+							'<span id="">' + data.data[i].author + '</span>' +
+							'<span id="">' + data.data[i].time + '</span>' +
+							'</div>' +
+							'</div>' +
+							'<div class="nr_img">' +
+							'<img  style="height: 100px !important;" src="' + data.data[i].images[0] + '" />' +
+							'</div>' +
+							'</div>';
+					} else {
+						li.innerHTML = '<div class="nr">' +
+							'<h4 class="">' +
+							'' + data.data[i].title + '' +
+							'	</h4>' +
+							'<div class="nr_img">' +
+							'<img  style="height: 70px !important;" src="' + data.data[i].images[2] + '" />' +
+							'<img  style="height: 70px !important;" src="' + data.data[i].images[3] + '" />' +
+							'<img  style="height: 70px !important;" src="' + data.data[i].images[4] + '" />' +
+							'</div>' +
+							'<div class="nr_wei">' +
+							'<span id="">' +
+							'' + data.data[i].author + '' +
+							'</span>' +
+							'<span id="">' +
+							'' + data.data[i].time + '' +
+							'	</span>' +
+							'	</div>' +
+							'</div>';
+					}
+					table.appendChild(li);
+				}
+				page = page + 1;
+			},
+
+		}, 1500);
+		//			6666
+					var page = 1
+		mui.ajax('http://9.988lhkj.com/life_content', {
+			data: {
+				page: page,
+				pageSize: 15,
+				class_id: 16,
+			},
+			dataType: 'json',
+			type: 'post', //HTTP请求类型
+			timeout: 10000,
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			success: function(data) {
+				//			var data = JSON.parse(data);;
+				//获得服务器响应
+				//->判断
+				//							console.debug(JSON.stringify(data));
+				console.info(JSON.stringify(data))
+
+				var table = document.body.querySelector('.tj_10');
+				var cells = document.body.querySelectorAll('.mui-table-view-cell');
+				var newCount = cells.length > 0 ? 5 : 20; //首次加载20条，满屏
+				//							var j = 0;
+				for(var i = cells.length, len = i + newCount; i < len; i++) {
+					if(!data.data[i]) {
+						mui.toast('没有信息了');
+						return
+					}
+					var li = document.createElement('li');
+					li.className = 'mui-table-view-cell';
+					li.dataset.id = data.data[i].id;
+
+					//								j = j + 1;
+					if(data.data[i].images.length < 7) {
+						li.innerHTML = '<div class="nr2">' +
+							'<div class="nr2_bt">' +
+							'<h4 class="">' + data.data[i].title + '</h4>' +
+							'<div class="nr_wei">' +
+							'<span id="">' + data.data[i].author + '</span>' +
+							'<span id="">' + data.data[i].time + '</span>' +
+							'</div>' +
+							'</div>' +
+							'<div class="nr_img">' +
+							'<img  style="height: 100px !important;" src="' + data.data[i].images[0] + '" />' +
+							'</div>' +
+							'</div>';
+					} else {
+						li.innerHTML = '<div class="nr">' +
+							'<h4 class="">' +
+							'' + data.data[i].title + '' +
+							'	</h4>' +
+							'<div class="nr_img">' +
+							'<img  style="height: 70px !important;" src="' + data.data[i].images[2] + '" />' +
+							'<img  style="height: 70px !important;" src="' + data.data[i].images[3] + '" />' +
+							'<img  style="height: 70px !important;" src="' + data.data[i].images[4] + '" />' +
+							'</div>' +
+							'<div class="nr_wei">' +
+							'<span id="">' +
+							'' + data.data[i].author + '' +
+							'</span>' +
+							'<span id="">' +
+							'' + data.data[i].time + '' +
+							'	</span>' +
+							'	</div>' +
+							'</div>';
+					}
+					table.appendChild(li);
+				}
+				page = page + 1;
+			},
+
+		}, 1500);
+
+	});
+}
+//page = page + 1;
+
+//var page = 1
+
+function addData() {
+	var page=1
+	
+	mui.ajax('http://9.988lhkj.com/life_content', {
+		data: {
+			page: page,
+			pageSize: 15,
+			class_id: 7,
+		},
+		dataType: 'json',
+		type: 'post', //HTTP请求类型
+		timeout: 10000,
+		headers: {
+			'Content-Type': 'application/json'
+		},
+
+		success: function(data) {
+			//			//			var data = JSON.parse(data);;
+			//获得服务器响应
+			//->判断
+			var table = document.body.querySelector('.ul_sh');
+			var cells = document.body.querySelectorAll('.mui-table-view-cell');
+			var o = 0;
+			for(var i = cells.length, len = i + 5; i < len; i++) {
+				console.info(i);
+				var li = document.createElement('li');
+				//							alert(len)
+				li.className = 'mui-table-view-cell';
+
+				li.dataset.id = data.data[o].id;
+				if(data.data[o].images.length < 7) {
+					li.innerHTML = '<div class="nr2">' +
+						'<div class="nr2_bt">' +
+						'<h4 class="">' + data.data[o].title + '</h4>' +
+						'<div class="nr_wei">' +
+						'<span id="">' + data.data[o].author + '</span>' +
+						'<span id="">' + data.data[o].time + '</span>' +
+						'</div>' +
+						'</div>' +
+						'<div class="nr_img">' +
+						'<img  style="height: 100px !important;" src="' + data.data[o].images[0] + '" />' +
+						'</div>' +
+						'</div>';
+				} else {
+					li.innerHTML = '<div class="nr">' +
+						'<h4 class="">' +
+						'' + data.data[o].title + '' +
+						'	</h4>' +
+						'<div class="nr_img">' +
+						'<img  style="height: 70px !important;" src="' + data.data[o].images[2] + '" />' +
+						'<img  style="height: 70px !important;" src="' + data.data[o].images[3] + '" />' +
+						'<img  style="height: 70px !important;" src="' + data.data[o].images[4] + '" />' +
+						'</div>' +
+						'<div class="nr_wei">' +
+						'<span id="">' +
+						'' + data.data[o].author + '' +
+						'</span>' +
+						'<span id="">' +
+						'' + data.data[o].time + '' +
+						'	</span>' +
+						'	</div>' +
+						'</div>';
+				}
+				//下拉刷新，新纪录插到最前面；
+				table.insertBefore(li, table.firstChild);
+				o = o + 1;
+			}
+			page = page + 1;
+
+		},
+
+	});
+
+	//			222222222222
+	var page=1
+	mui.ajax('http://9.988lhkj.com/life_content', {
+		data: {
+			page: page,
+			pageSize: 15,
+			class_id: 8,
+		},
+		dataType: 'json',
+		type: 'post', //HTTP请求类型
+		timeout: 10000,
+		headers: {
+			'Content-Type': 'application/json'
+		},
+
+		success: function(data) {
+			//			//			var data = JSON.parse(data);;;
+			//获得服务器响应
+			//->判断
+			var table = document.body.querySelector('.tj_2');
+			var cells = document.body.querySelectorAll('.mui-table-view-cell');
+			var o = 0;
+			for(var i = cells.length, len = i + 5; i < len; i++) {
+				console.info(i);
+				var li = document.createElement('li');
+				//							alert(len)
+				li.className = 'mui-table-view-cell';
+
+				li.dataset.id = data.data[o].id;
+				if(data.data[o].images.length < 7) {
+					li.innerHTML = '<div class="nr2">' +
+						'<div class="nr2_bt">' +
+						'<h4 class="">' + data.data[o].title + '</h4>' +
+						'<div class="nr_wei">' +
+						'<span id="">' + data.data[o].author + '</span>' +
+						'<span id="">' + data.data[o].time + '</span>' +
+						'</div>' +
+						'</div>' +
+						'<div class="nr_img">' +
+						'<img  style="height: 100px !important;" src="' + data.data[o].images[0] + '" />' +
+						'</div>' +
+						'</div>';
+				} else {
+					li.innerHTML = '<div class="nr">' +
+						'<h4 class="">' +
+						'' + data.data[o].title + '' +
+						'	</h4>' +
+						'<div class="nr_img">' +
+						'<img  style="height: 70px !important;" src="' + data.data[o].images[2] + '" />' +
+						'<img  style="height: 70px !important;" src="' + data.data[o].images[3] + '" />' +
+						'<img  style="height: 70px !important;" src="' + data.data[o].images[4] + '" />' +
+						'</div>' +
+						'<div class="nr_wei">' +
+						'<span id="">' +
+						'' + data.data[o].author + '' +
+						'</span>' +
+						'<span id="">' +
+						'' + data.data[o].time + '' +
+						'	</span>' +
+						'	</div>' +
+						'</div>';
+				}
+				//下拉刷新，新纪录插到最前面；
+				table.insertBefore(li, table.firstChild);
+				o = o + 1;
+			}
+
+		},
+
+	});
+
+	//			3333333333
+	var page=1
+	
+	mui.ajax('http://9.988lhkj.com/life_content', {
+		data: {
+			page: page,
+			pageSize: 15,
+			class_id: 9,
+		},
+		dataType: 'json',
+		type: 'post', //HTTP请求类型
+		timeout: 10000,
+		headers: {
+			'Content-Type': 'application/json'
+		},
+
+		success: function(data) {
+			//			//			var data = JSON.parse(data);;;
+			//获得服务器响应
+			//->判断
+			var table = document.body.querySelector('.tj_3');
+			var cells = document.body.querySelectorAll('.mui-table-view-cell');
+			var o = 0;
+			for(var i = cells.length, len = i + 5; i < len; i++) {
+				console.info(i);
+				var li = document.createElement('li');
+				//							alert(len)
+				li.className = 'mui-table-view-cell';
+
+				li.dataset.id = data.data[o].id;
+				if(data.data[o].images.length < 7) {
+					li.innerHTML = '<div class="nr2">' +
+						'<div class="nr2_bt">' +
+						'<h4 class="">' + data.data[o].title + '</h4>' +
+						'<div class="nr_wei">' +
+						'<span id="">' + data.data[o].author + '</span>' +
+						'<span id="">' + data.data[o].time + '</span>' +
+						'</div>' +
+						'</div>' +
+						'<div class="nr_img">' +
+						'<img  style="height: 100px !important;" src="' + data.data[o].images[0] + '" />' +
+						'</div>' +
+						'</div>';
+				} else {
+					li.innerHTML = '<div class="nr">' +
+						'<h4 class="">' +
+						'' + data.data[o].title + '' +
+						'	</h4>' +
+						'<div class="nr_img">' +
+						'<img  style="height: 70px !important;" src="' + data.data[o].images[2] + '" />' +
+						'<img  style="height: 70px !important;" src="' + data.data[o].images[3] + '" />' +
+						'<img  style="height: 70px !important;" src="' + data.data[o].images[4] + '" />' +
+						'</div>' +
+						'<div class="nr_wei">' +
+						'<span id="">' +
+						'' + data.data[o].author + '' +
+						'</span>' +
+						'<span id="">' +
+						'' + data.data[o].time + '' +
+						'	</span>' +
+						'	</div>' +
+						'</div>';
+				}
+				//下拉刷新，新纪录插到最前面；
+				table.insertBefore(li, table.firstChild);
+				o = o + 1;
+			}
+
+		},
+
+	});
+	//			44444444444444
+	var page=1
+	
+	mui.ajax('http://9.988lhkj.com/life_content', {
+		data: {
+			page: page,
+			pageSize: 15,
+			class_id: 10,
+		},
+		dataType: 'json',
+		type: 'post', //HTTP请求类型
+		timeout: 10000,
+		headers: {
+			'Content-Type': 'application/json'
+		},
+
+		success: function(data) {
+			//			var data = JSON.parse(data);
+			//获得服务器响应
+			//->判断
+			var table = document.body.querySelector('.tj_4');
+			var cells = document.body.querySelectorAll('.mui-table-view-cell');
+			var o = 0;
+			for(var i = cells.length, len = i + 5; i < len; i++) {
+				console.info(i);
+				var li = document.createElement('li');
+				//							alert(len)
+				li.className = 'mui-table-view-cell';
+
+				li.dataset.id = data.data[o].id;
+				if(data.data[o].images.length < 7) {
+					li.innerHTML = '<div class="nr2">' +
+						'<div class="nr2_bt">' +
+						'<h4 class="">' + data.data[o].title + '</h4>' +
+						'<div class="nr_wei">' +
+						'<span id="">' + data.data[o].author + '</span>' +
+						'<span id="">' + data.data[o].time + '</span>' +
+						'</div>' +
+						'</div>' +
+						'<div class="nr_img">' +
+						'<img  style="height: 100px !important;" src="' + data.data[o].images[0] + '" />' +
+						'</div>' +
+						'</div>';
+				} else {
+					li.innerHTML = '<div class="nr">' +
+						'<h4 class="">' +
+						'' + data.data[o].title + '' +
+						'	</h4>' +
+						'<div class="nr_img">' +
+						'<img  style="height: 70px !important;" src="' + data.data[o].images[2] + '" />' +
+						'<img  style="height: 70px !important;" src="' + data.data[o].images[3] + '" />' +
+						'<img  style="height: 70px !important;" src="' + data.data[o].images[4] + '" />' +
+						'</div>' +
+						'<div class="nr_wei">' +
+						'<span id="">' +
+						'' + data.data[o].author + '' +
+						'</span>' +
+						'<span id="">' +
+						'' + data.data[o].time + '' +
+						'	</span>' +
+						'	</div>' +
+						'</div>';
+				}
+				//下拉刷新，新纪录插到最前面；
+				table.insertBefore(li, table.firstChild);
+				o = o + 1;
+			}
+
+		},
+
+	});
+	//			5555555555
+	var page=1
+	
+	mui.ajax('http://9.988lhkj.com/life_content', {
+		data: {
+			page: page,
+			pageSize: 15,
+			class_id: 11,
+		},
+		dataType: 'json',
+		type: 'post', //HTTP请求类型
+		timeout: 10000,
+		headers: {
+			'Content-Type': 'application/json'
+		},
+
+		success: function(data) {
+			//			var data = JSON.parse(data);
+			//获得服务器响应
+			//->判断
+			var table = document.body.querySelector('.tj_5');
+			var cells = document.body.querySelectorAll('.mui-table-view-cell');
+			var o = 0;
+			for(var i = cells.length, len = i + 5; i < len; i++) {
+				console.info(i);
+				var li = document.createElement('li');
+				//							alert(len)
+				li.className = 'mui-table-view-cell';
+
+				li.dataset.id = data.data[o].id;
+				if(data.data[o].images.length < 7) {
+					li.innerHTML = '<div class="nr2">' +
+						'<div class="nr2_bt">' +
+						'<h4 class="">' + data.data[o].title + '</h4>' +
+						'<div class="nr_wei">' +
+						'<span id="">' + data.data[o].author + '</span>' +
+						'<span id="">' + data.data[o].time + '</span>' +
+						'</div>' +
+						'</div>' +
+						'<div class="nr_img">' +
+						'<img  style="height: 100px !important;" src="' + data.data[o].images[0] + '" />' +
+						'</div>' +
+						'</div>';
+				} else {
+					li.innerHTML = '<div class="nr">' +
+						'<h4 class="">' +
+						'' + data.data[o].title + '' +
+						'	</h4>' +
+						'<div class="nr_img">' +
+						'<img  style="height: 70px !important;" src="' + data.data[o].images[2] + '" />' +
+						'<img  style="height: 70px !important;" src="' + data.data[o].images[3] + '" />' +
+						'<img  style="height: 70px !important;" src="' + data.data[o].images[4] + '" />' +
+						'</div>' +
+						'<div class="nr_wei">' +
+						'<span id="">' +
+						'' + data.data[o].author + '' +
+						'</span>' +
+						'<span id="">' +
+						'' + data.data[o].time + '' +
+						'	</span>' +
+						'	</div>' +
+						'</div>';
+				}
+				//下拉刷新，新纪录插到最前面；
+				table.insertBefore(li, table.firstChild);
+				o = o + 1;
+			}
+
+		},
+
+	});
+	var page=1
+	//6666666666
+	mui.ajax('http://9.988lhkj.com/life_content', {
+		data: {
+			page: page,
+			pageSize: 15,
+			class_id: 12,
+		},
+		dataType: 'json',
+		type: 'post', //HTTP请求类型
+		timeout: 10000,
+		headers: {
+			'Content-Type': 'application/json'
+		},
+
+		success: function(data) {
+			//var data = JSON.parse(data);;
+			//获得服务器响应
+			//->判断
+			var table = document.body.querySelector('.tj_6');
+			var cells = document.body.querySelectorAll('.mui-table-view-cell');
+			var o = 0;
+			for(var i = cells.length, len = i + 5; i < len; i++) {
+				console.info(i);
+				var li = document.createElement('li');
+				//							alert(len)
+				li.className = 'mui-table-view-cell';
+
+				li.dataset.id = data.data[o].id;
+				if(data.data[o].images.length < 7) {
+					li.innerHTML = '<div class="nr2">' +
+						'<div class="nr2_bt">' +
+						'<h4 class="">' + data.data[o].title + '</h4>' +
+						'<div class="nr_wei">' +
+						'<span id="">' + data.data[o].author + '</span>' +
+						'<span id="">' + data.data[o].time + '</span>' +
+						'</div>' +
+						'</div>' +
+						'<div class="nr_img">' +
+						'<img  style="height: 100px !important;" src="' + data.data[o].images[0] + '" />' +
+						'</div>' +
+						'</div>';
+				} else {
+					li.innerHTML = '<div class="nr">' +
+						'<h4 class="">' +
+						'' + data.data[o].title + '' +
+						'	</h4>' +
+						'<div class="nr_img">' +
+						'<img  style="height: 70px !important;" src="' + data.data[o].images[2] + '" />' +
+						'<img  style="height: 70px !important;" src="' + data.data[o].images[3] + '" />' +
+						'<img  style="height: 70px !important;" src="' + data.data[o].images[4] + '" />' +
+						'</div>' +
+						'<div class="nr_wei">' +
+						'<span id="">' +
+						'' + data.data[o].author + '' +
+						'</span>' +
+						'<span id="">' +
+						'' + data.data[o].time + '' +
+						'	</span>' +
+						'	</div>' +
+						'</div>';
+				}
+				//下拉刷新，新纪录插到最前面；
+				table.insertBefore(li, table.firstChild);
+				o = o + 1;
+			}
+			page = page + 1;
+
+		},
+
+	});
+	var page=1
+	//6666666666
+	mui.ajax('http://9.988lhkj.com/life_content', {
+		data: {
+			page: page,
+			pageSize: 15,
+			class_id: 13,
+		},
+		dataType: 'json',
+		type: 'post', //HTTP请求类型
+		timeout: 10000,
+		headers: {
+			'Content-Type': 'application/json'
+		},
+
+		success: function(data) {
+			//var data = JSON.parse(data);;
+			//获得服务器响应
+			//->判断
+			var table = document.body.querySelector('.tj_7');
+			var cells = document.body.querySelectorAll('.mui-table-view-cell');
+			var o = 0;
+			for(var i = cells.length, len = i + 5; i < len; i++) {
+				console.info(i);
+				var li = document.createElement('li');
+				//							alert(len)
+				li.className = 'mui-table-view-cell';
+
+				li.dataset.id = data.data[o].id;
+				if(data.data[o].images.length < 7) {
+					li.innerHTML = '<div class="nr2">' +
+						'<div class="nr2_bt">' +
+						'<h4 class="">' + data.data[o].title + '</h4>' +
+						'<div class="nr_wei">' +
+						'<span id="">' + data.data[o].author + '</span>' +
+						'<span id="">' + data.data[o].time + '</span>' +
+						'</div>' +
+						'</div>' +
+						'<div class="nr_img">' +
+						'<img  style="height: 100px !important;" src="' + data.data[o].images[0] + '" />' +
+						'</div>' +
+						'</div>';
+				} else {
+					li.innerHTML = '<div class="nr">' +
+						'<h4 class="">' +
+						'' + data.data[o].title + '' +
+						'	</h4>' +
+						'<div class="nr_img">' +
+						'<img  style="height: 70px !important;" src="' + data.data[o].images[2] + '" />' +
+						'<img  style="height: 70px !important;" src="' + data.data[o].images[3] + '" />' +
+						'<img  style="height: 70px !important;" src="' + data.data[o].images[4] + '" />' +
+						'</div>' +
+						'<div class="nr_wei">' +
+						'<span id="">' +
+						'' + data.data[o].author + '' +
+						'</span>' +
+						'<span id="">' +
+						'' + data.data[o].time + '' +
+						'	</span>' +
+						'	</div>' +
+						'</div>';
+				}
+				//下拉刷新，新纪录插到最前面；
+				table.insertBefore(li, table.firstChild);
+				o = o + 1;
+			}
+			page = page + 1;
+
+		},
+
+	}); //6666666666
+	var page=1
+	mui.ajax('http://9.988lhkj.com/life_content', {
+		data: {
+			page: page,
+			pageSize: 15,
+			class_id: 14,
+		},
+		dataType: 'json',
+		type: 'post', //HTTP请求类型
+		timeout: 10000,
+		headers: {
+			'Content-Type': 'application/json'
+		},
+
+		success: function(data) {
+			//var data = JSON.parse(data);;
+			//获得服务器响应
+			//->判断
+			var table = document.body.querySelector('.tj_8');
+			var cells = document.body.querySelectorAll('.mui-table-view-cell');
+			var o = 0;
+			for(var i = cells.length, len = i + 5; i < len; i++) {
+				console.info(i);
+				var li = document.createElement('li');
+				//							alert(len)
+				li.className = 'mui-table-view-cell';
+
+				li.dataset.id = data.data[o].id;
+				if(data.data[o].images.length < 7) {
+					li.innerHTML = '<div class="nr2">' +
+						'<div class="nr2_bt">' +
+						'<h4 class="">' + data.data[o].title + '</h4>' +
+						'<div class="nr_wei">' +
+						'<span id="">' + data.data[o].author + '</span>' +
+						'<span id="">' + data.data[o].time + '</span>' +
+						'</div>' +
+						'</div>' +
+						'<div class="nr_img">' +
+						'<img  style="height: 100px !important;" src="' + data.data[o].images[0] + '" />' +
+						'</div>' +
+						'</div>';
+				} else {
+					li.innerHTML = '<div class="nr">' +
+						'<h4 class="">' +
+						'' + data.data[o].title + '' +
+						'	</h4>' +
+						'<div class="nr_img">' +
+						'<img  style="height: 70px !important;" src="' + data.data[o].images[2] + '" />' +
+						'<img  style="height: 70px !important;" src="' + data.data[o].images[3] + '" />' +
+						'<img  style="height: 70px !important;" src="' + data.data[o].images[4] + '" />' +
+						'</div>' +
+						'<div class="nr_wei">' +
+						'<span id="">' +
+						'' + data.data[o].author + '' +
+						'</span>' +
+						'<span id="">' +
+						'' + data.data[o].time + '' +
+						'	</span>' +
+						'	</div>' +
+						'</div>';
+				}
+				//下拉刷新，新纪录插到最前面；
+				table.insertBefore(li, table.firstChild);
+				o = o + 1;
+			}
+			page = page + 1;
+
+		},
+
+	}); //6666666666
+	var page=1
+	
+	mui.ajax('http://9.988lhkj.com/life_content', {
+		data: {
+			page: page,
+			pageSize: 15,
+			class_id: 15,
+		},
+		dataType: 'json',
+		type: 'post', //HTTP请求类型
+		timeout: 10000,
+		headers: {
+			'Content-Type': 'application/json'
+		},
+
+		success: function(data) {
+			//var data = JSON.parse(data);;
+			//获得服务器响应
+			//->判断
+			var table = document.body.querySelector('.tj_9');
+			var cells = document.body.querySelectorAll('.mui-table-view-cell');
+			var o = 0;
+			for(var i = cells.length, len = i + 5; i < len; i++) {
+				console.info(i);
+				var li = document.createElement('li');
+				//							alert(len)
+				li.className = 'mui-table-view-cell';
+
+				li.dataset.id = data.data[o].id;
+				if(data.data[o].images.length < 7) {
+					li.innerHTML = '<div class="nr2">' +
+						'<div class="nr2_bt">' +
+						'<h4 class="">' + data.data[o].title + '</h4>' +
+						'<div class="nr_wei">' +
+						'<span id="">' + data.data[o].author + '</span>' +
+						'<span id="">' + data.data[o].time + '</span>' +
+						'</div>' +
+						'</div>' +
+						'<div class="nr_img">' +
+						'<img  style="height: 100px !important;" src="' + data.data[o].images[0] + '" />' +
+						'</div>' +
+						'</div>';
+				} else {
+					li.innerHTML = '<div class="nr">' +
+						'<h4 class="">' +
+						'' + data.data[o].title + '' +
+						'	</h4>' +
+						'<div class="nr_img">' +
+						'<img  style="height: 70px !important;" src="' + data.data[o].images[2] + '" />' +
+						'<img  style="height: 70px !important;" src="' + data.data[o].images[3] + '" />' +
+						'<img  style="height: 70px !important;" src="' + data.data[o].images[4] + '" />' +
+						'</div>' +
+						'<div class="nr_wei">' +
+						'<span id="">' +
+						'' + data.data[o].author + '' +
+						'</span>' +
+						'<span id="">' +
+						'' + data.data[o].time + '' +
+						'	</span>' +
+						'	</div>' +
+						'</div>';
+				}
+				//下拉刷新，新纪录插到最前面；
+				table.insertBefore(li, table.firstChild);
+				o = o + 1;
+			}
+			page = page + 1;
+
+		},
+
+	}); //6666666666
+	var page=1
+	
+	mui.ajax('http://9.988lhkj.com/life_content', {
+		data: {
+			page: page,
+			pageSize: 15,
+			class_id: 16,
+		},
+		dataType: 'json',
+		type: 'post', //HTTP请求类型
+		timeout: 10000,
+		headers: {
+			'Content-Type': 'application/json'
+		},
+
+		success: function(data) {
+			//var data = JSON.parse(data);;
+			//获得服务器响应
+			//->判断
+			var table = document.body.querySelector('.tj_10');
+			var cells = document.body.querySelectorAll('.mui-table-view-cell');
+			var o = 0;
+			for(var i = cells.length, len = i + 5; i < len; i++) {
+				console.info(i);
+				var li = document.createElement('li');
+				//							alert(len)
+				li.className = 'mui-table-view-cell';
+
+				li.dataset.id = data.data[o].id;
 				
-			})(mui);
+				if(data.data[o].images.length < 7) {
+//					alert(o)
+					
+					li.innerHTML = '<div class="nr2">' +
+						'<div class="nr2_bt">' +
+						'<h4 class="">' + data.data[o].title + '</h4>' +
+						'<div class="nr_wei">' +
+						'<span id="">' + data.data[o].author + '</span>' +
+						'<span id="">' + data.data[o].time + '</span>' +
+						'</div>' +
+						'</div>' +
+						'<div class="nr_img">' +
+						'<img  style="height: 100px !important;" src="' + data.data[o].images[0] + '" />' +
+						'</div>' +
+						'</div>';
+				} else {
+					li.innerHTML = '<div class="nr">' +
+						'<h4 class="">' +
+						'' + data.data[o].title + '' +
+						'	</h4>' +
+						'<div class="nr_img">' +
+						'<img  style="height: 70px !important;" src="' + data.data[o].images[2] + '" />' +
+						'<img  style="height: 70px !important;" src="' + data.data[o].images[3] + '" />' +
+						'<img  style="height: 70px !important;" src="' + data.data[o].images[4] + '" />' +
+						'</div>' +
+						'<div class="nr_wei">' +
+						'<span id="">' +
+						'' + data.data[o].author + '' +
+						'</span>' +
+						'<span id="">' +
+						'' + data.data[o].time + '' +
+						'	</span>' +
+						'	</div>' +
+						'</div>';
+				}
+				//下拉刷新，新纪录插到最前面；
+				table.insertBefore(li, table.firstChild);
+
+				
+				o = o + 1;
+
+			}
+			page = page + 1;
+
+		},
+
+	});
+
+}
+
+/**
+ * 下拉刷新具体业务实现
+ */
+function pulldownRefresh() {
+	setTimeout(function() {
+		addData();
+		mui('#pullrefresh').pullRefresh().endPulldown();
+//		mui.toast("为你推荐了5篇文章");
+	}, 1500);
+}
+
+mui('.mui-table-view').on('tap', '.mui-table-view-cell', function(e) {
+	var id = this.dataset.id;
+	//					alert(id)
+	mui.openWindow('../home_xq/home_xq.html', id, {
+		extras: {
+			id: id
+		}
+	});
+});
+
+mui.init();
+
+//再加入这段代码
+(function($) {
+	$(".mui-scroll-wrapper").scroll({
+		//bounce: false,//滚动条是否有弹力默认是true
+		//indicators: false, //是否显示滚动条,默认是true
+
+	});
+})(mui);
+//再加入这段代码
+(function($) {
+	$("#sliderSegmentedControl").scroll({
+		bounce: false,//滚动条是否有弹力默认是true
+		indicators: false, //是否显示滚动条,默认是true
+		scrollX: true,
+	});
+})(mui);

@@ -1,254 +1,353 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-	<meta charset="utf-8">
-	<title>Hello MUI</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
-	<meta name="apple-mobile-web-app-capable" content="yes">
-	<meta name="apple-mobile-web-app-status-bar-style" content="black">
-	<link href="zixun.css" rel="stylesheet"/>
-	<link href="../../public/css/mui.min.css" rel="stylesheet"/>
-</head>
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link href="zixun.css" rel="stylesheet" />
+		<link href="../../public/css/mui.min.css" rel="stylesheet" />
+	</head>
 
-<body>
-<header class="mui-bar mui-bar-nav" style="background-color: #9266f9;">
+	<body>
+		<header class="mui-bar mui-bar-nav" style="background: #705de8;">
 
-	<h1 class="mui-title">资讯</h1>
-</header>
-<div class="mui-content">
-	<div id="slider" class="mui-slider mui-fullscreen">
-		<!--导航-->
-		<div>
-			<div id="sliderSegmentedControl" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
-				<div class="mui-scroll">
-					<a class="mui-control-item mui-active" href="#item1mobile">
-						推荐
-					</a>
-					<a class="mui-control-item" href="#item2mobile">
-						热点
-					</a>
-					<a class="mui-control-item" href="#item3mobile">
-						北京
-					</a>
-					<a class="mui-control-item" href="#item4mobile">
-						社会
-					</a>
-					<a class="mui-control-item" href="#item5mobile">
-						娱乐
-					</a>
-					<a class="mui-control-item" href="#item6mobile">
-						科技
-					</a>
-				</div>				
+			<h1 class="mui-title">资讯</h1>
+		</header>
+		<div class="mui-content">
+			<div id="slider" class="mui-slider mui-fullscreen">
+				<!--导航-->
+				<div style="background: #efeff4;">
+					<div id="sliderSegmentedControl"  style="width: 100% !important;"  class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+						<div class="mui-scroll" style="width: 260% !important;" > 
+							<a id="tj" class="mui-control-item mui-active" href="#item1mobile">
+								特殊情况
+							</a>
+							<a id="jfjc" class="mui-control-item" href="#item2mobile">
+								特殊人群
+							</a>
+							<a id="jbss" class="mui-control-item" href="#item3mobile">
+								减肥窍门
+							</a>
+							<a id="jfys" class="mui-control-item" href="#item4mobile">
+								中医减肥
+							</a>
+							<a id="ydjf" class="mui-control-item" href="#item5mobile">
+								药物减肥
+							</a>
+							<a id="jfff" class="mui-control-item" href="#item6mobile">
+								时尚瘦身
+							</a>							
+							<a id="jftc" class="mui-control-item" href="#item7mobile">
+								减肥套餐
+							</a>
+							<a id="jfgs" class="mui-control-item" href="#item8mobile">
+								减肥果蔬
+							</a>
+							<a id="jfcy" class="mui-control-item" href="#item9mobile">
+								减肥茶饮
+							</a>
+							<a id="yycs" class="mui-control-item" href="#item10mobile">
+								营养常识
+							</a>
+						</div>
 
-			</div>
-			<div id="mui">
-				<a class="mui-icon mui-icon-bars"></a>
+					</div>
+					<div id="mui">
+						<a class="mui-icon mui-icon-bars"></a>
+					</div>
+				</div>
+				<div class="mui-slider-group">
+					<div id="item1mobile" class="mui-slider-item mui-control-content mui-active">
+						<div id="scroll1" class="mui-scroll-wrapper">
+							<div class="mui-scroll" id="pullrefresh">
+								<ul id="zqbb" class="mui-table-view ul_sh" style="margin-bottom: 10% !important;">
+									<!--<li  class="mui-table-view-cell mui-media">-->
+									<!--<div class="nr">
+											<h4 class="">
+									        		标题标题标题标题标题题标题题标题题标题
+									        	</h4>
+											<div class="nr_img">
+												<img src="../../public/img/timg1.jpg" />
+												<img src="../../public/img/timg1.jpg" />
+												<img src="../../public/img/timg1.jpg" />
+											</div>
+											<div class="nr_wei">
+												<span id="">
+									        			新华网
+									        		</span>
+												<span id="">
+									        			日期216546
+									        		</span>
+											</div>
+										</div>-->
+									<!--</li>-->
+									<!--<li class="mui-table-view-cell mui-media">
+										<div class="nr2">
+											<div class="nr2_bt">
+												<h4 class="">标题标题题标题题标题题标题题标题题标题题标题题标题题标题题标题标题标题标题题标题题标题题标题</h4>
+												<div class="nr_wei">
+													<span id="">新华网</span>
+													<span id="">日期216546</span>
+												</div>
+											</div>
+											<div class="nr_img">
+												<img src="../../public/img/timg1.jpg" />
+											</div>
+
+										</div>
+									</li>-->
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div id="item2mobile" class="mui-slider-item mui-control-content">
+						<div class="mui-scroll-wrapper">
+							<div class="mui-scroll">
+								<ul id="tj_2" class="mui-table-view tj_2">
+									<!--<li class="mui-table-view-cell mui-media">
+										<a href="javascript:;">
+											<img class="mui-media-object mui-pull-right" src="http://placehold.it/40x30">
+											<div class="mui-media-body">
+												幸福
+												<p class="mui-ellipsis">能和心爱的人一起睡觉，是件幸福的事情；可是，打呼噜怎么办？</p>
+											</div>
+										</a>
+									</li>
+									<li class="mui-table-view-cell mui-media">
+										<a href="javascript:;">
+											<img class="mui-media-object mui-pull-right" src="http://placehold.it/40x30">
+											<div class="mui-media-body">
+												幸福
+												<p class="mui-ellipsis">能和心爱的人一起睡觉，是件幸福的事情；可是，打呼噜怎么办？</p>
+											</div>
+										</a>
+									</li>-->
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div id="item3mobile" class="mui-slider-item mui-control-content">
+						<div class="mui-scroll-wrapper">
+							<div class="mui-scroll">
+								<ul id="tj_3" class="mui-table-view tj_3">
+									<!--<li class="mui-table-view-cell mui-media">
+										<a href="javascript:;">
+											<img class="mui-media-object mui-pull-right" src="http://placehold.it/40x30">
+											<div class="mui-media-body">
+												幸福
+												<p class="mui-ellipsis">能和心爱的人一起睡觉，是件幸福的事情；可是，打呼噜怎么办？</p>
+											</div>
+										</a>
+									</li>
+									<li class="mui-table-view-cell mui-media">
+										<a href="javascript:;">
+											<img class="mui-media-object mui-pull-right" src="http://placehold.it/40x30">
+											<div class="mui-media-body">
+												幸福
+												<p class="mui-ellipsis">能和心爱的人一起睡觉，是件幸福的事情；可是，打呼噜怎么办？</p>
+											</div>
+										</a>
+									</li>-->
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div id="item4mobile" class="mui-slider-item mui-control-content">
+						<div class="mui-scroll-wrapper">
+							<div class="mui-scroll">
+								<ul id="tj_4" class="mui-table-view tj_4">
+									<!--<li class="mui-table-view-cell mui-media">
+										<a href="javascript:;">
+											<img class="mui-media-object mui-pull-right" src="http://placehold.it/40x30">
+											<div class="mui-media-body">
+												幸福
+												<p class="mui-ellipsis">能和心爱的人一起睡觉，是件幸福的事情；可是，打呼噜怎么办？</p>
+											</div>
+										</a>
+									</li>
+									<li class="mui-table-view-cell mui-media">
+										<a href="javascript:;">
+											<img class="mui-media-object mui-pull-right" src="http://placehold.it/40x30">
+											<div class="mui-media-body">
+												幸福
+												<p class="mui-ellipsis">能和心爱的人一起睡觉，是件幸福的事情；可是，打呼噜怎么办？</p>
+											</div>
+										</a>
+									</li>-->
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div id="item5mobile" class="mui-slider-item mui-control-content">
+						<div class="mui-scroll-wrapper">
+							<div class="mui-scroll">
+								<ul id="tj_5" class="mui-table-view tj_5">
+									<!--<li class="mui-table-view-cell mui-media">
+										<a href="javascript:;">
+											<img class="mui-media-object mui-pull-right" src="http://placehold.it/40x30">
+											<div class="mui-media-body">
+												幸福
+												<p class="mui-ellipsis">能和心爱的人一起睡觉，是件幸福的事情；可是，打呼噜怎么办？</p>
+											</div>
+										</a>
+									</li>
+									<li class="mui-table-view-cell mui-media">
+										<a href="javascript:;">
+											<img class="mui-media-object mui-pull-right" src="http://placehold.it/40x30">
+											<div class="mui-media-body">
+												幸福
+												<p class="mui-ellipsis">能和心爱的人一起睡觉，是件幸福的事情；可是，打呼噜怎么办？</p>
+											</div>
+										</a>
+									</li>-->
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div id="item6mobile" class="mui-slider-item mui-control-content">
+						<div class="mui-scroll-wrapper">
+							<div class="mui-scroll">
+								<ul id="tj_6" class="mui-table-view tj_6">
+									<!--<li class="mui-table-view-cell mui-media">
+										<a href="javascript:;">
+											<img class="mui-media-object mui-pull-right" src="http://placehold.it/40x30">
+											<div class="mui-media-body">
+												幸福
+												<p class="mui-ellipsis">能和心爱的人一起睡觉，是件幸福的事情；可是，打呼噜怎么办？</p>
+											</div>
+										</a>
+									</li>
+									<li class="mui-table-view-cell mui-media">
+										<a href="javascript:;">
+											<img class="mui-media-object mui-pull-right" src="http://placehold.it/40x30">
+											<div class="mui-media-body">
+												幸福
+												<p class="mui-ellipsis">能和心爱的人一起睡觉，是件幸福的事情；可是，打呼噜怎么办？</p>
+											</div>
+										</a>
+									</li>-->
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div id="item7mobile" class="mui-slider-item mui-control-content">
+						<div class="mui-scroll-wrapper">
+							<div class="mui-scroll">
+								<ul id="tj_7" class="mui-table-view tj_7">
+									<!--<li class="mui-table-view-cell mui-media">
+										<a href="javascript:;">
+											<img class="mui-media-object mui-pull-right" src="http://placehold.it/40x30">
+											<div class="mui-media-body">
+												幸福
+												<p class="mui-ellipsis">能和心爱的人一起睡觉，是件幸福的事情；可是，打呼噜怎么办？</p>
+											</div>
+										</a>
+									</li>
+									<li class="mui-table-view-cell mui-media">
+										<a href="javascript:;">
+											<img class="mui-media-object mui-pull-right" src="http://placehold.it/40x30">
+											<div class="mui-media-body">
+												幸福
+												<p class="mui-ellipsis">能和心爱的人一起睡觉，是件幸福的事情；可是，打呼噜怎么办？</p>
+											</div>
+										</a>
+									</li>-->
+								</ul>
+							</div>
+						</div>
+					</div>
+					
+						<div id="item8mobile" class="mui-slider-item mui-control-content">
+						<div class="mui-scroll-wrapper">
+							<div class="mui-scroll">
+								<ul id="tj_8" class="mui-table-view tj_8">
+									<!--<li class="mui-table-view-cell mui-media">
+										<a href="javascript:;">
+											<img class="mui-media-object mui-pull-right" src="http://placehold.it/40x30">
+											<div class="mui-media-body">
+												幸福
+												<p class="mui-ellipsis">能和心爱的人一起睡觉，是件幸福的事情；可是，打呼噜怎么办？</p>
+											</div>
+										</a>
+									</li>
+									<li class="mui-table-view-cell mui-media">
+										<a href="javascript:;">
+											<img class="mui-media-object mui-pull-right" src="http://placehold.it/40x30">
+											<div class="mui-media-body">
+												幸福
+												<p class="mui-ellipsis">能和心爱的人一起睡觉，是件幸福的事情；可是，打呼噜怎么办？</p>
+											</div>
+										</a>
+									</li>-->
+								</ul>
+							</div>
+						</div>
+					</div>
+				
+					<div id="item9mobile" class="mui-slider-item mui-control-content">
+						<div class="mui-scroll-wrapper">
+							<div class="mui-scroll">
+								<ul id="tj_9" class="mui-table-view tj_9">
+									<!--<li class="mui-table-view-cell mui-media">
+										<a href="javascript:;">
+											<img class="mui-media-object mui-pull-right" src="http://placehold.it/40x30">
+											<div class="mui-media-body">
+												幸福
+												<p class="mui-ellipsis">能和心爱的人一起睡觉，是件幸福的事情；可是，打呼噜怎么办？</p>
+											</div>
+										</a>
+									</li>
+									<li class="mui-table-view-cell mui-media">
+										<a href="javascript:;">
+											<img class="mui-media-object mui-pull-right" src="http://placehold.it/40x30">
+											<div class="mui-media-body">
+												幸福
+												<p class="mui-ellipsis">能和心爱的人一起睡觉，是件幸福的事情；可是，打呼噜怎么办？</p>
+											</div>
+										</a>
+									</li>-->
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div id="item10mobile" class="mui-slider-item mui-control-content">
+						<div class="mui-scroll-wrapper">
+							<div class="mui-scroll">
+								<ul id="tj_10" class="mui-table-view tj_10">
+									<!--<li class="mui-table-view-cell mui-media">
+										<a href="javascript:;">
+											<img class="mui-media-object mui-pull-right" src="http://placehold.it/40x30">
+											<div class="mui-media-body">
+												幸福
+												<p class="mui-ellipsis">能和心爱的人一起睡觉，是件幸福的事情；可是，打呼噜怎么办？</p>
+											</div>
+										</a>
+									</li>
+									<li class="mui-table-view-cell mui-media">
+										<a href="javascript:;">
+											<img class="mui-media-object mui-pull-right" src="http://placehold.it/40x30">
+											<div class="mui-media-body">
+												幸福
+												<p class="mui-ellipsis">能和心爱的人一起睡觉，是件幸福的事情；可是，打呼噜怎么办？</p>
+											</div>
+										</a>
+									</li>-->
+								</ul>
+							</div>
+						</div>
+					</div>
+				
+				
+				</div>
 			</div>
 		</div>
-		<div class="mui-slider-group">
-			<div id="item1mobile" class="mui-slider-item mui-control-content mui-active">
-				<div id="scroll1" class="mui-scroll-wrapper">
-					<div class="mui-scroll">
-						<ul class="mui-table-view">
-							<ul class="mui-table-view">
-							    <li class="mui-table-view-cell mui-media">
-							        <a href="javascript:;">
-							            <img class="mui-media-object mui-pull-right" src="http://placehold.it/40x30">
-							            <div class="mui-media-body">
-							                幸福Hi，李明明，申请交行信息卡，100元等你拿，李明明，申请交行信息卡，100元等你拿，Hi，李明明，申请交行信息卡，100元等你拿，李明明，申请交行信息卡，100元等你拿，Hi，李明明，申请交行信息卡，100元等你拿，李明明，申请交行信息卡，100元等你拿，Hi，李明明，申请交行信息卡，100元等你拿，李明明，申请交行信息卡，100元等你拿，
-							                <p class="mui-ellipsis">能和心爱的人一起睡觉，是件幸福的事情；可是，打呼噜怎么办？</p>
-							            </div>
-							        </a>
-							    </li>
-							    <li class="mui-table-view-cell mui-media">
-							        <a href="javascript:;">
-							            <img class="mui-media-object mui-pull-right" src="http://placehold.it/40x30">
-							            <div class="mui-media-body">
-							                幸福
-							                <p class="mui-ellipsis">能和心爱的人一起睡觉，是件幸福的事情；可是，打呼噜怎么办？</p>
-							            </div>
-							        </a>
-							    </li>
-							    <li class="mui-table-view-cell mui-media">
-							        <a href="javascript:;">
-							            <img class="mui-media-object mui-pull-right" src="http://placehold.it/40x30">
-							            <div class="mui-media-body">
-							                幸福
-							                <p class="mui-ellipsis">能和心爱的人一起睡觉，是件幸福的事情；可是，打呼噜怎么办？</p>
-							            </div>
-							        </a>
-							    </li>
-							    <li class="mui-table-view-cell mui-media">
-							        <a href="javascript:;">
-							            <img class="mui-media-object mui-pull-right" src="http://placehold.it/40x30">
-							            <div class="mui-media-body">
-							                幸福
-							                <p class="mui-ellipsis">能和心爱的人一起睡觉，是件幸福的事情；可是，打呼噜怎么办？</p>
-							            </div>
-							        </a>
-							    </li>
-							</ul>
-							<li class="mui-table-view-cell mui-media">
-							        <a href="javascript:;">
-							            <img class="mui-media-object mui-pull-right" src="http://placehold.it/40x30">
-							            <div class="mui-media-body">
-							                幸福
-							                <p class="mui-ellipsis">能和心爱的人一起睡觉，是件幸福的事情；可是，打呼噜怎么办？</p>
-							            </div>
-							        </a>
-							    </li>
-							    <li class="mui-table-view-cell mui-media">
-							        <a href="javascript:;">
-							            <img class="mui-media-object mui-pull-right" src="http://placehold.it/40x30">
-							            <div class="mui-media-body">
-							                幸福
-							                <p class="mui-ellipsis">能和心爱的人一起睡觉，是件幸福的事情；可是，打呼噜怎么办？</p>
-							            </div>
-							        </a>
-							    </li>
-						</ul>
-					</div>
-				</div>
-			</div>
-			<div id="item2mobile" class="mui-slider-item mui-control-content">
-				<div class="mui-scroll-wrapper">
-					<div class="mui-scroll">
-						<ul class="mui-table-view">
-							<li class="mui-table-view-cell mui-media">
-							        <a href="javascript:;">
-							            <img class="mui-media-object mui-pull-right" src="http://placehold.it/40x30">
-							            <div class="mui-media-body">
-							                幸福
-							                <p class="mui-ellipsis">能和心爱的人一起睡觉，是件幸福的事情；可是，打呼噜怎么办？</p>
-							            </div>
-							        </a>
-							    </li>
-							    <li class="mui-table-view-cell mui-media">
-							        <a href="javascript:;">
-							            <img class="mui-media-object mui-pull-right" src="http://placehold.it/40x30">
-							            <div class="mui-media-body">
-							                幸福
-							                <p class="mui-ellipsis">能和心爱的人一起睡觉，是件幸福的事情；可是，打呼噜怎么办？</p>
-							            </div>
-							        </a>
-							    </li>
-						</ul>
-					</div>
-				</div>
-			</div>
-			<div id="item3mobile" class="mui-slider-item mui-control-content">
-				<div class="mui-scroll-wrapper">
-					<div class="mui-scroll">
-						<ul class="mui-table-view">
-							<li class="mui-table-view-cell mui-media">
-							        <a href="javascript:;">
-							            <img class="mui-media-object mui-pull-right" src="http://placehold.it/40x30">
-							            <div class="mui-media-body">
-							                幸福
-							                <p class="mui-ellipsis">能和心爱的人一起睡觉，是件幸福的事情；可是，打呼噜怎么办？</p>
-							            </div>
-							        </a>
-							    </li>
-							    <li class="mui-table-view-cell mui-media">
-							        <a href="javascript:;">
-							            <img class="mui-media-object mui-pull-right" src="http://placehold.it/40x30">
-							            <div class="mui-media-body">
-							                幸福
-							                <p class="mui-ellipsis">能和心爱的人一起睡觉，是件幸福的事情；可是，打呼噜怎么办？</p>
-							            </div>
-							        </a>
-							    </li>
-						</ul>
-					</div>
-				</div>
-			</div>
-			<div id="item4mobile" class="mui-slider-item mui-control-content">
-				<div class="mui-scroll-wrapper">
-					<div class="mui-scroll">
-						<ul class="mui-table-view">
-							<li class="mui-table-view-cell mui-media">
-							        <a href="javascript:;">
-							            <img class="mui-media-object mui-pull-right" src="http://placehold.it/40x30">
-							            <div class="mui-media-body">
-							                幸福
-							                <p class="mui-ellipsis">能和心爱的人一起睡觉，是件幸福的事情；可是，打呼噜怎么办？</p>
-							            </div>
-							        </a>
-							    </li>
-							    <li class="mui-table-view-cell mui-media">
-							        <a href="javascript:;">
-							            <img class="mui-media-object mui-pull-right" src="http://placehold.it/40x30">
-							            <div class="mui-media-body">
-							                幸福
-							                <p class="mui-ellipsis">能和心爱的人一起睡觉，是件幸福的事情；可是，打呼噜怎么办？</p>
-							            </div>
-							        </a>
-							    </li>
-						</ul>
-					</div>
-				</div>
-			</div>
-			<div id="item5mobile" class="mui-slider-item mui-control-content">
-				<div class="mui-scroll-wrapper">
-					<div class="mui-scroll">
-						<ul class="mui-table-view">
-							<li class="mui-table-view-cell mui-media">
-							        <a href="javascript:;">
-							            <img class="mui-media-object mui-pull-right" src="http://placehold.it/40x30">
-							            <div class="mui-media-body">
-							                幸福
-							                <p class="mui-ellipsis">能和心爱的人一起睡觉，是件幸福的事情；可是，打呼噜怎么办？</p>
-							            </div>
-							        </a>
-							    </li>
-							    <li class="mui-table-view-cell mui-media">
-							        <a href="javascript:;">
-							            <img class="mui-media-object mui-pull-right" src="http://placehold.it/40x30">
-							            <div class="mui-media-body">
-							                幸福
-							                <p class="mui-ellipsis">能和心爱的人一起睡觉，是件幸福的事情；可是，打呼噜怎么办？</p>
-							            </div>
-							        </a>
-							    </li>
-						</ul>
-					</div>
-				</div>
-			</div>
-			<div id="item6mobile" class="mui-slider-item mui-control-content">
-				<div class="mui-scroll-wrapper">
-					<div class="mui-scroll">
-						<ul class="mui-table-view">
-							<li class="mui-table-view-cell mui-media">
-							        <a href="javascript:;">
-							            <img class="mui-media-object mui-pull-right" src="http://placehold.it/40x30">
-							            <div class="mui-media-body">
-							                幸福
-							                <p class="mui-ellipsis">能和心爱的人一起睡觉，是件幸福的事情；可是，打呼噜怎么办？</p>
-							            </div>
-							        </a>
-							    </li>
-							    <li class="mui-table-view-cell mui-media">
-							        <a href="javascript:;">
-							            <img class="mui-media-object mui-pull-right" src="http://placehold.it/40x30">
-							            <div class="mui-media-body">
-							                幸福
-							                <p class="mui-ellipsis">能和心爱的人一起睡觉，是件幸福的事情；可是，打呼噜怎么办？</p>
-							            </div>
-							        </a>
-							    </li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
+	</body>
+	<script src="../../public/js/mui.min.js"></script>
+	<script src="../../public/js/mui.pullToRefresh.js"></script>
+	<script src="../../public/js/mui.pullToRefresh.material.js"></script>
+	<script src="zixun.js"></script>
 
-	</div>
-</div>
-</body>
-<script src="../../public/js/mui.min.js"></script>
-<script src="../../public/js/mui.pullToRefresh.js"></script>
-<script src="../../public/js/mui.pullToRefresh.material.js"></script>
-<script src="zixun.js"></script>
 </html>

@@ -130,6 +130,7 @@
 						console.info(JSON.stringify(data));
 						mui.toast(data.message);
 						if(data.code === 200) {
+							localStorage.setItem('password', data.data.password);
 							mui.back();
 						}
 					},

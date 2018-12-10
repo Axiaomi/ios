@@ -1,5 +1,8 @@
 mui.init({});
-mui.plusReady(function() {        
+mui.plusReady(function() {      
+	window.addEventListener('refresh', function(e) { //执行刷新
+		location.reload();
+	});  
 	plus.navigator.setStatusBarStyle("UIStatusBarStyleBlackOpaque");
 	plus.navigator.setStatusBarBackground('#705de8'); //设置状态栏的颜色	
 	document.getElementById('tabbar-with-map').addEventListener('tap', function(e) {
@@ -62,20 +65,80 @@ mui.plusReady(function() {        
 	document.getElementById('wo').addEventListener('tap', function(e) {
 		mui.alert('为用户提供最新最好的质询,app有动态图为用户提供观赏性,每天实时更新,我们会不断完善功能');
 	});
+
+	(function($, doc) {
+		window.addEventListener('refresh', function(e) {
+			//执行刷新
+			console.log("刷新父页面")
+			location.reload();
+		});
+	})(mui, document);
+
+	var geren = document.getElementById('geren');
+	var username = localStorage.getItem('username');
+	var user_id = localStorage.getItem('user_id');
+	var img = localStorage.getItem('img');
+	var nickname = localStorage.getItem('nickname');
+	var imgdata = localStorage.getItem("imgdata"); //获取
+
+	if(username && user_id) {
+		//		alert(img)
+		geren.innerHTML = '<div class="header_touxiang">' +
+//			'<img class="header_img" src="' + img + ' "/>' +
+					'<img class="header_img" src="../../public/img/timg1.jpg"/>'+
+			'</div>' +
+			'<div class="header_mingzi">' +
+			'<p>' + nickname + '</p>' +
+			'<p>' + username + '</p>' +
+			'</div>' +
+			'<div class="mui-icon mui-icon-arrowright header_jiao">' +
+			'</div>';
+	}
 	document.getElementById('geren').addEventListener('tap', function(e) {
-		mui.openWindow('mee_xq.html', {});
+		if(!username || !user_id) {
+			mui.openWindow('../login/login.html', 'login');
+			return;
+		}
+		mui.openWindow('mee_xq.html', 'mee_xq');
+		return;
 	});
+
 	document.getElementById('shezhi').addEventListener('tap', function(e) {
 		mui.openWindow('mee_shezhi.html', {});
 	});
 	document.getElementById('tiezi').addEventListener('tap', function(e) {
-		mui.openWindow('mee_tiezi.html', {});
+
+		var id = localStorage.getItem('user_id');
+		if(id == null) {
+			mui.openWindow('../login/login.html', 'login');
+			return
+		} else {
+			mui.openWindow('mee_tiezi.html', {});
+
+		}
+
 	});
 	document.getElementById('quanzi').addEventListener('tap', function(e) {
-		mui.alert('暂无服务,我们会不断完善功能');
+		var id = localStorage.getItem('user_id');
+		if(id == null) {
+			mui.openWindow('../login/login.html', 'login');
+			return
+		} else {
+			mui.alert('暂无服务,我们会不断完善功能');
+
+		}
+
 	});
 	document.getElementById('shoucang').addEventListener('tap', function(e) {
-		mui.openWindow('mee_shoucang.html', {});
+
+		var id = localStorage.getItem('user_id');
+		if(id == null) {
+			mui.openWindow('../login/login.html', 'login');
+			return
+		} else {
+			mui.openWindow('mee_shoucang.html', {});
+
+		}
 
 	});
 
